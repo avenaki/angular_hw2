@@ -38,7 +38,7 @@ export class AppComponent {
       name: "Андрей",
       surname: "Иванович",
       patronymic: "Иванов",
-      birthDate: new Date("2-10-1998"),
+      birthDate: new Date("1998-11-1"),
       schedule: "Бизнес-информатика",
       averageScore: 5,
       isBachelor: true,
@@ -49,7 +49,7 @@ export class AppComponent {
       name: "Ольга",
       surname: "Романова",
       patronymic: "Михайловна",
-      birthDate: new Date("11-14-1999"),
+      birthDate: new Date("1999-03-01"),
       schedule: "Программная-инженерия",
       averageScore: 4,
       isBachelor: true,
@@ -60,7 +60,7 @@ export class AppComponent {
       name: "Анастасия",
       surname: "Кутузова",
       patronymic: "Евгеньевна",
-      birthDate: new Date("02-14-1999"),
+      birthDate: new Date("1999-02-11"),
       schedule: "Экономика",
       averageScore: 3,
       isBachelor: true,
@@ -73,7 +73,7 @@ export class AppComponent {
       name: "Олег",
       surname: "Семенович",
       patronymic: "Олегович",
-      birthDate: new Date("02-01-1986"),
+      birthDate: new Date("1986-11-11"),
       schedule: "Менеджмент",
       averageScore: 4,
       isBachelor: false,
@@ -83,7 +83,7 @@ export class AppComponent {
       name: "Екатерина",
       surname: "Гордиенко",
       patronymic: "Ивановна",
-      birthDate: new Date("10-11-1997"),
+      birthDate: new Date("1997-12-03"),
       schedule: "Менеджмент",
       averageScore: 2,
       isBachelor: false,
@@ -94,7 +94,7 @@ export class AppComponent {
       name: "Екатерина",
       surname: "Сырцева",
       patronymic: "Александровна",
-      birthDate: new Date("12-31-1995"),
+      birthDate: new Date("1995-12-22"),
       schedule: "Экономика",
       averageScore: 2,
       isBachelor: true,
@@ -105,7 +105,7 @@ export class AppComponent {
       name: "Ольга",
       surname: "Шушарина",
       patronymic: "Ивановна",
-      birthDate: new Date("11-01-1999"),
+      birthDate: new Date("1999-08-15"),
       schedule: "Программная-инженерия",
       averageScore: 4,
       isBachelor: true,
@@ -116,7 +116,7 @@ export class AppComponent {
       name: "Кристина",
       surname: "Патракова",
       patronymic: "Андреевна",
-      birthDate: new Date("06-24-1999"),
+      birthDate: new Date("1999-06-24"),
       schedule: "Менеджмент",
       averageScore: 2,
       isBachelor: true,
@@ -247,8 +247,13 @@ clickAdd: boolean = false;
     }
 
   deleteStudent(id: number): void {
+    const result = confirm("Вы точно хотите удалить студента?");
+    if (result) {
       this.students = this.students.filter(item => item.id !== id);
       alert("Student with Id " + id.toString() + " was deleted! ");
+    } else {
+      return;
+    }
   }
 
 }
