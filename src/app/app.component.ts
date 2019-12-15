@@ -246,16 +246,9 @@ clickAdd: boolean = false;
       }
     }
 
-  deleteStudent(): void {
-    if (Number(this.selectedValue) !== 3 || this.idToDelete === undefined || this.studentIsFound === false ) {
-      alert("You need to find user first in order to delete him/her. Check that you have choosen 3 option and entered students id");
-      return;
-    }
-    if (Number(this.selectedValue) === 3 && this.studentIsFound === true) {
-      this.studentIsFound = false;
-      this.students = this.students.filter(item => item.id !== this.idToDelete);
-      alert("Student with Id " + this.idToDelete.toString() + " was deleted! ");
-    }
+  deleteStudent(id: number): void {
+      this.students = this.students.filter(item => item.id !== id);
+      alert("Student with Id " + id.toString() + " was deleted! ");
   }
 
 }

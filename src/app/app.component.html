@@ -13,7 +13,6 @@
   <input type="text" [(ngModel)] = "searchInput" [ngModelOptions]="{standalone: true}"/>
 </form>
   <button class="searchButton" (click)="searchStudent()">Найти</button>
-    <button class="deleteButton" (click)="deleteStudent()">Удалить</button>
   </div>
   <div class="filterForm">
     <div class="selectForm">
@@ -51,7 +50,7 @@
   <table>
   <tr>
     <th class="th1"> </th>
-    <th class="th2">Cтуд. билет<i class="fas fa-caret-up" (click)="sortStudents('id', 'ASC')" > </i> <i class="fas fa-caret-down" (click)="sortStudents('id', 'DESC')"> </i></th>
+    <th class="th2">Cтуденч. билет<i class="fas fa-caret-up" (click)="sortStudents('id', 'ASC')" > </i> <i class="fas fa-caret-down" (click)="sortStudents('id', 'DESC')"> </i></th>
     <th >Имя  <i class="fas fa-caret-up"  (click)="sortStudents('name', 'ASC')"></i> <i class="fas fa-caret-down"  (click)="sortStudents('name', 'DESC')" ></i></th>
     <th>Фамилия  <i class="fas fa-caret-up"  (click)="sortStudents('surname', 'ASC')"></i> <i class="fas fa-caret-down"  (click)="sortStudents('surname', 'ASC')"></i></th>
     <th>Отчество  <i class="fas fa-caret-up"  (click)="sortStudents('patronymic', 'ASC')"></i> <i class="fas fa-caret-down"  (click)="sortStudents('patronymic', 'DESC')"></i></th>
@@ -60,6 +59,7 @@
     <th class="thLast">Бакалавриат  <i class="fas fa-caret-up" (click)="sortStudents('isBachelor', 'ASC')"></i> <i class="fas fa-caret-down" (click)="sortStudents('isBachelor', 'DESC')"></i></th>
     <th class="thLast">Стипендия  <i class="fas fa-caret-up" (click)="sortStudents('hasScholarship', 'ASC')"></i><i class="fas fa-caret-down" (click)="sortStudents('hasScholarship', 'DESC')"></i></th>
     <th class="thLast">Средний балл  <i class="fas fa-caret-up" (click)="sortStudents('averageScore', 'ASC')"></i><i class="fas fa-caret-down" (click)="sortStudents('averageScore', 'DESC')"></i></th>
+    <th class="th2"> Удалить</th>
   </tr>
   <tbody *ngFor="let student of students; let i = index">
 
@@ -74,6 +74,7 @@
   <td  >{{student.isBachelor}}</td>
   <td  >{{student.hasScholarship}}</td>
   <td  >{{student.averageScore}}</td>
+  <td class="tdDel td3"> <i class="fas fa-times-circle" (click)="deleteStudent(student.id)"></i></td>
 </tr>
   </tbody>
 </table>
