@@ -1,0 +1,89 @@
+<div class="container">
+
+
+  <div class="searchForm">
+    <div class="selectForm">
+    <div class="miniText">Поиск по </div>
+    <select [(ngModel)]="selectedValue"  [ngModelOptions]="{standalone: true}">
+      <option value="1" > Имя </option>
+      <option value="2" selected> Фамилия </option>
+      <option value ="3">Номер студенческого</option>
+    </select>
+    </div>
+<form >
+
+  <input type="text" [(ngModel)] = "searchInput" [ngModelOptions]="{standalone: true}"/>
+</form>
+  <button class="searchButton" (click)="searchStudent()">Найти</button>
+    <button class="deleteButton" (click)="deleteStudent()">Удалить</button>
+  </div>
+  <div class="filterForm">
+    <div class="selectForm">
+      <div class="miniText">Фильтрация по </div>
+      <select [(ngModel)]="selectedFilteredValue"  [ngModelOptions]="{standalone: true}">
+        <option value="1" > Дата рождения </option>
+        <option value="2" selected> Средний балл </option>
+      </select>
+    </div>
+    <form >
+      <div class = "input1">
+      <div class="miniText"> От</div>
+      <input type="text" class="input1" [(ngModel)] = "filterInput1" [ngModelOptions]="{standalone: true}" />
+      </div>
+      <div class="input2" >
+      <div class="miniText"> До</div>
+      <input type="text" [(ngModel)] = "filterInput2" [ngModelOptions]="{standalone: true}"/>
+      </div>
+    </form>
+    <button class="filterButton" (click)="filterStudents()">Готово</button>
+  </div>
+  <div class="togglesContainer">
+  <div *ngIf="status === true">
+    <i class="fas fa-toggle-on toggle " (click)="switchF()"></i>
+  </div>
+  <div *ngIf="status === false">
+    <i class="fas fa-toggle-off toggle " (click)="switchF()"></i>
+  </div>
+    <div>
+      <i class="fas fa-plus-square" (click)="openModal('add-student-modal')"></i>
+    </div>
+  </div>
+
+
+
+  <table>
+  <tr>
+    <th class="th1"> </th>
+    <th class="th2">Cтуд. билет<i class="fas fa-caret-up" (click)="sortStudents('id', 'ASC')" > </i> <i class="fas fa-caret-down" (click)="sortStudents('id', 'DESC')"> </i></th>
+    <th >Имя  <i class="fas fa-caret-up"  (click)="sortStudents('name', 'ASC')"></i> <i class="fas fa-caret-down"  (click)="sortStudents('name', 'DESC')" ></i></th>
+    <th>Фамилия  <i class="fas fa-caret-up"  (click)="sortStudents('surname', 'ASC')"></i> <i class="fas fa-caret-down"  (click)="sortStudents('surname', 'ASC')"></i></th>
+    <th>Отчество  <i class="fas fa-caret-up"  (click)="sortStudents('patronymic', 'ASC')"></i> <i class="fas fa-caret-down"  (click)="sortStudents('patronymic', 'DESC')"></i></th>
+    <th>Дата рождения  <i class="fas fa-caret-up" (click)="sortStudents('birthDate', 'ASC')"></i> <i class="fas fa-caret-down" (click)="sortStudents('birthDate', 'DESC')"></i></th>
+    <th>Направление  <i class="fas fa-caret-up" (click)="sortStudents('schedule', 'ASC')"></i> <i class="fas fa-caret-down" (click)="sortStudents('schedule', 'DESC')"></i></th>
+    <th class="thLast">Бакалавриат  <i class="fas fa-caret-up" (click)="sortStudents('isBachelor', 'ASC')"></i> <i class="fas fa-caret-down" (click)="sortStudents('isBachelor', 'DESC')"></i></th>
+    <th class="thLast">Стипендия  <i class="fas fa-caret-up" (click)="sortStudents('hasScholarship', 'ASC')"></i><i class="fas fa-caret-down" (click)="sortStudents('hasScholarship', 'DESC')"></i></th>
+    <th class="thLast">Средний балл  <i class="fas fa-caret-up" (click)="sortStudents('averageScore', 'ASC')"></i><i class="fas fa-caret-down" (click)="sortStudents('averageScore', 'DESC')"></i></th>
+  </tr>
+  <tbody *ngFor="let student of students; let i = index">
+
+<tr class="highlight students"[class.showFStudents]=" studentIsValid(student.averageScore)" [class.showStudent]=" filterStudent(student.averageScore, student.birthDate)" [style.background-color] = "colorStudent(student.name, student.surname, student.id )"  >
+  <td class=" td2 ">{{i+1}}</td>
+  <td class=" td1"  >{{student.id}}</td>
+  <td >{{student.name}}</td>
+  <td  >{{student.surname}}</td>
+  <td  >{{student.patronymic}}</td>
+  <td  >{{student.birthDate | date}}</td>
+  <td  >{{student.schedule}}</td>
+  <td  >{{student.isBachelor}}</td>
+  <td  >{{student.hasScholarship}}</td>
+  <td  >{{student.averageScore}}</td>
+</tr>
+
+  </tbody>
+</table>
+</div>
+<jw-modal id="add-student-modal">
+<div class="form-group">
+
+</div>
+</jw-modal>

@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,500,700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css');
+
+h1{
+  font-family: 'Roboto', sans-serif;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width:100%;
+  height: 100%;
+  margin-top: 40px;
+
+}
+.searchButton, form, .optionalButtons,.selectForm{
+  display: inline-block;
+  margin-right: 5px;
+
+}
+.editButton {
+  border-radius: 4px;
+  flex: 1 1;
+  width: 110px;
+  border: 1px solid dodgerblue;
+  background-color: white;
+  font-size: 14px;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+  color: midnightblue;
+  margin-left: 10px;
+}
+.editButton:hover {
+  background-color: dodgerblue;
+  color:white;
+}
+.input1, .input2 {
+  display: inline-block;
+  margin-right: 5px;
+  margin-top:15px;
+}
+.filterButton, .filterForm, form{
+  display: inline-block;
+  margin-right: 5px;
+}
+input {
+  font-size: 16px;
+  display: block;
+  width: 200px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #6b6b6b;
+  margin-left: 30px;
+}
+input:focus {
+  outline: none;
+}
+
+.searchButton {
+  border-radius: 4px;
+  flex: 1 1;
+  width: 80px;
+  border: 1px solid lawngreen;
+  background-color: white;
+  font-size: 14px;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+  color: midnightblue;
+  margin-left: 10px;
+}
+
+.searchButton:hover{
+  color:white;
+  background-color: #5cd147;
+  border-color: #5cd147;
+}
+
+.filterButton {
+  border-radius: 4px;
+  flex: 1 1;
+  width: 80px;
+  border: 1px solid lawngreen;
+  background-color: white;
+  font-size: 14px;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+  color: midnightblue;
+  margin-left: 10px;
+}
+
+.filterButton:hover {
+  color:white;
+  background-color:#5cd147;
+  border-color: #5cd147;
+}
+.showStudent{
+  display:none;
+}
+option {
+  margin-top: 20px;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+}
+table {
+  margin-left: 2%;
+  margin-bottom: 5%;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  font-size: 12px;
+  background: white;
+  width: 94%;
+  border-collapse: collapse;
+  text-align: left;
+  margin-top: 14px;
+  height: 50%;
+
+}
+th {
+  background-color:#1f1f1f;
+  opacity: 0.6;
+  font-weight: 300;
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+  color:lawngreen;
+  border-bottom: 2px solid white;
+  width: 100px;
+  height:40px;
+  text-align: center;
+
+}
+
+.toggle {
+  opacity:0.7;
+  margin-left: 90%;
+  margin-top: 2%;
+}
+.toggle:hover {
+  opacity:0.6;
+}
+.togglesContainer{
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 6%;
+}
+
+select {
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+}
+.highlight {
+  background-color: white;
+  color: #4a4a4a;
+  text-align: center;
+}
+
+select {
+  font-family:
+    'Roboto','Helvetica','Arial',sans-serif;
+  position: relative;
+  width: 150px;
+  border: 2px solid lawngreen;
+  border-radius: 8px;
+  margin-top:8px;
+  margin-left: 20px;
+}
+.miniText{
+  font-weight: 300;
+  font-size: 9px;
+  font-family:
+    'Roboto','Helvetica','Arial',sans-serif;
+  color: darkslategrey;
+  margin-left: 20px;
+}
+.deleteButton {
+  border-radius: 4px;
+  flex: 1 1;
+  width: 80px;
+  border: 1px solid #707070;
+  background-color: white;
+  font-size: 14px;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  margin-left: 10px;
+}
+.deleteButton:hover{
+  background-color: #ff670f;
+  border: 1px solid #ff670f;
+  color:white;
+}
+.fa-sync {
+  margin-left: 92%;
+  opacity: 0.7;
+}
+.fas:hover {
+  opacity:0.5;
+}
+th:first-child, td:first-child {
+  text-align: left;
+}
+th:first-child {
+  border-top-left-radius: 10px;
+}
+th:last-child {
+  border-top-right-radius: 10px;
+  border-right: none;
+}
+td {
+  padding: 5px 5px;
+  border-bottom: 1px solid #4a4a4a;
+  height:34px;
+  font-size: 10px;
+}
+th:hover {
+  opacity:0.7;
+}
+tr:last-child td:first-child {
+  border-radius: 0 0 0 10px;
+}
+tr:last-child td:last-child {
+  border-radius: 0 0 10px 0;
+}
+
+.th1{
+  width:5px;
+  text-align: right;
+
+
+
+}
+
+th2{
+  width:10px;
+}
+.td1 {
+  border-left: 1px solid black;
+}
+tr.students:hover{
+  font-weight: bolder;
+
+}
+
+.showFStudents {
+  color:#db4307;
+  solid-opacity: 0.4;
+  margin-left: 80%;
+}
+
+
+
