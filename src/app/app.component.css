@@ -11,12 +11,10 @@ h1{
   width:100%;
   height: 100%;
   margin-top: 40px;
-
 }
 .searchButton, form, .optionalButtons,.selectForm{
   display: inline-block;
   margin-right: 5px;
-
 }
 .editButton {
   border-radius: 4px;
@@ -55,7 +53,6 @@ input {
 input:focus {
   outline: none;
 }
-
 .searchButton {
   border-radius: 4px;
   flex: 1 1;
@@ -74,7 +71,6 @@ input:focus {
   background-color: #5cd147;
   border-color: #5cd147;
 }
-
 .filterButton {
   border-radius: 4px;
   flex: 1 1;
@@ -87,7 +83,6 @@ input:focus {
   color: midnightblue;
   margin-left: 10px;
 }
-
 .filterButton:hover {
   color:white;
   background-color:#5cd147;
@@ -112,7 +107,6 @@ table {
   text-align: left;
   margin-top: 14px;
   height: 50%;
-
 }
 th {
   background-color:#1f1f1f;
@@ -125,11 +119,9 @@ th {
   width: 100px;
   height:40px;
   text-align: center;
-
 }
-
 .toggle {
-  opacity:0.7;
+  opacity: 0.7;
   margin-left: 90%;
   margin-top: 2%;
 }
@@ -141,7 +133,6 @@ th {
   flex-direction: row-reverse;
   margin-right: 6%;
 }
-
 select {
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
@@ -149,8 +140,7 @@ select {
 .highlight {
   background-color: white;
   color: #4a4a4a;
-  text-align: center;
-}
+  text-align: center;}
 
 select {
   font-family:
@@ -219,26 +209,16 @@ tr:last-child td:first-child {
 tr:last-child td:last-child {
   border-radius: 0 0 10px 0;
 }
-
 .th1{
   width:5px;
   text-align: right;
-
-
-
-}
-
-th2{
-  width:10px;
 }
 .td1 {
   border-left: 1px solid black;
 }
 tr.students:hover{
   font-weight: bolder;
-
 }
-
 .showFStudents {
   color:#db4307;
   solid-opacity: 0.4;
