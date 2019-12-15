@@ -56,11 +56,11 @@ input:focus {
 .searchButton {
   border-radius: 4px;
   flex: 1 1;
-  width: 80px;
-  border: 1px solid lawngreen;
+  width: 100px;
+  border: 1px solid midnightblue;
   background-color: white;
-  font-size: 14px;
-  font-weight: 300;
+  font-size: 16px;
+  font-weight: 500;
   font-family: 'Roboto', sans-serif;
   color: midnightblue;
   margin-left: 10px;
@@ -68,25 +68,25 @@ input:focus {
 
 .searchButton:hover{
   color:white;
-  background-color: #5cd147;
-  border-color: #5cd147;
+  background-color: midnightblue;
+  opacity:0.8;
 }
 .filterButton {
   border-radius: 4px;
   flex: 1 1;
-  width: 80px;
-  border: 1px solid lawngreen;
+  width: 100px;
+  font-weight: 500;
+  border: 1px solid midnightblue;
   background-color: white;
-  font-size: 14px;
-  font-weight: 300;
+  font-size: 16px;
   font-family: 'Roboto', sans-serif;
   color: midnightblue;
   margin-left: 10px;
 }
 .filterButton:hover {
   color:white;
-  background-color:#5cd147;
-  border-color: #5cd147;
+  background-color: midnightblue;
+  opacity:0.8;
 }
 .showStudent{
   display:none;
@@ -97,12 +97,9 @@ option {
   font-family: 'Roboto', sans-serif;
 }
 table {
-  margin-left: 2%;
-  margin-bottom: 5%;
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-  font-size: 12px;
   background: white;
-  width: 94%;
+  width: 100%;
   border-collapse: collapse;
   text-align: left;
   margin-top: 14px;
@@ -110,11 +107,11 @@ table {
 }
 th {
   background-color:#1f1f1f;
-  opacity: 0.6;
+  opacity: 0.8;
   font-weight: 300;
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'Roboto', sans-serif;
-  color:lawngreen;
+  color: white;
   border-bottom: 2px solid white;
   width: 100px;
   height:40px;
@@ -122,7 +119,6 @@ th {
 }
 .toggle {
   opacity: 0.7;
-  margin-left: 90%;
   margin-top: 2%;
 }
 .toggle:hover {
@@ -131,30 +127,33 @@ th {
 .togglesContainer{
   display: flex;
   flex-direction: row-reverse;
-  margin-right: 6%;
+}
+.toggleLabel, toggle{
+  display: inline-block;
+  margin-right: 5px;
+}
+.toggleLabel {
+  vertical-align: super;
 }
 select {
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
 }
-.highlight {
-  background-color: white;
-  color: #4a4a4a;
-  text-align: center;}
 
 select {
   font-family:
     'Roboto','Helvetica','Arial',sans-serif;
   position: relative;
   width: 150px;
-  border: 2px solid lawngreen;
+  border: 2px solid midnightblue;
   border-radius: 8px;
   margin-top:8px;
   margin-left: 20px;
 }
 .miniText{
   font-weight: 300;
-  font-size: 9px;
+  font-size: 12px;
+  font-weight: 500;
   font-family:
     'Roboto','Helvetica','Arial',sans-serif;
   color: darkslategrey;
@@ -163,23 +162,24 @@ select {
 .deleteButton {
   border-radius: 4px;
   flex: 1 1;
-  width: 80px;
+  width: 100px;
   border: 1px solid #707070;
   background-color: white;
-  font-size: 14px;
-  font-weight: 300;
+  font-size: 16px;
+  font-weight: 500;
   font-family: 'Roboto', sans-serif;
   color: black;
   margin-left: 10px;
 }
 .deleteButton:hover{
-  background-color: #ff670f;
-  border: 1px solid #ff670f;
+  background-color:  red;
+  border: 1px solid red;
+  opacity:0.8;
   color:white;
 }
 .fa-sync {
   margin-left: 92%;
-  opacity: 0.7;
+  opacity: 0.4;
 }
 .fas:hover {
   opacity:0.5;
@@ -198,7 +198,6 @@ td {
   padding: 5px 5px;
   border-bottom: 1px solid #4a4a4a;
   height:34px;
-  font-size: 10px;
 }
 th:hover {
   opacity:0.7;
@@ -216,14 +215,19 @@ tr:last-child td:last-child {
 .td1 {
   border-left: 1px solid black;
 }
-tr.students:hover{
-  font-weight: bolder;
-}
 .showFStudents {
   color:#db4307;
   solid-opacity: 0.4;
   margin-left: 80%;
 }
-
+.needsHighlight{
+  background-color: #ddf2cc;
+}
+.custom {
+  font-size: 14px;
+  background-color: white;
+  color: #4a4a4a;
+  text-align: center;
+}
 
 

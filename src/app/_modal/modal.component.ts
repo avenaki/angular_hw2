@@ -1,15 +1,16 @@
-﻿import { Component, ViewEncapsulation, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
+// tslint:disable-next-line:encoding
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
+import { ModalService } from "./modal.service";
 
-import { ModalService } from './modal.service';
-
-@Component({ 
-    selector: 'jw-modal', 
-    templateUrl: 'modal.component.html', 
-    styleUrls: ['modal.component.less'],
+@Component({
+    selector: "jw-modal",
+    templateUrl: "modal.component.html",
+    styleUrls: ["modal.component.less"],
     encapsulation: ViewEncapsulation.None
 })
 export class ModalComponent implements OnInit, OnDestroy {
     @Input() id: string;
+  // tslint:disable-next-line:no-any
     private element: any;
 
     constructor(private modalService: ModalService, private el: ElementRef) {
@@ -19,7 +20,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         // ensure id attribute exists
         if (!this.id) {
-            console.error('modal must have an id');
+            console.error("modal must have an id");
             return;
         }
 
@@ -27,8 +28,8 @@ export class ModalComponent implements OnInit, OnDestroy {
         document.body.appendChild(this.element);
 
         // close modal on background click
-        this.element.addEventListener('click', el => {
-            if (el.target.className === 'jw-modal') {
+        this.element.addEventListener("click", el => {
+            if (el.target.className === "jw-modal") {
                 this.close();
             }
         });
@@ -45,13 +46,13 @@ export class ModalComponent implements OnInit, OnDestroy {
 
     // open modal
     open(): void {
-        this.element.style.display = 'block';
-        document.body.classList.add('jw-modal-open');
+        this.element.style.display = "block";
+        document.body.classList.add("jw-modal-open");
     }
 
     // close modal
     close(): void {
-        this.element.style.display = 'none';
-        document.body.classList.remove('jw-modal-open');
+        this.element.style.display = "none";
+        document.body.classList.remove("jw-modal-open");
     }
 }

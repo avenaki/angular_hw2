@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
-import { ModalService } from "src/app/_modal";
-
+import { AddStudentComponent } from "./add-student/add-student.component";
 
 class Student {
   id: number;
@@ -32,7 +31,7 @@ class Student {
 })
 
 export class AppComponent {
-  constructor(private modalService: ModalService) { }
+
   students: Student[] = [
     {
       id: 1,
@@ -133,12 +132,14 @@ export class AppComponent {
   selectedValue: string;
   idToDelete: number;
   selectedFilteredValue: string;
+  selectedNowFilter: string;
   filterInput1: string;
   inputCheck1: string;
   inputCheck2: string;
   filterInput2: string;
   studentIsFound: boolean = false;
-  switchF(): void {
+clickAdd: boolean = false;
+  switchShowFStudents(): void {
     this.status = !this.status;
   }
   studentIsValid(score: number): boolean {
@@ -152,24 +153,26 @@ export class AppComponent {
 
   filterStudents(): void {
     this.filterStatus = true;
+    this.selectedFilteredValue = this.selectedNowFilter;
     this.inputCheck1 = this.filterInput1;
     this.inputCheck2 = this.filterInput2;
   }
-  colorStudent(name: string, surname: string, id: number): string {
+  colorStudent(name: string, surname: string, id: number): boolean {
     if (this.searchStatus && surname.toLowerCase() === this.searchValue && Number(this.selectedValue) === 2) {
       this.studentIsFound = true;
-      return "#ddf2cc";
+      return true;
     }
     if (this.searchStatus && name.toLowerCase() === this.searchValue && Number(this.selectedValue) === 1) {
       this.studentIsFound = true;
-      return "#ddf2cc";
+      return true;
     }
     if (this.searchStatus && id === Number(this.searchValue) && Number(this.selectedValue) === 3) {
-      this.idToDelete = id;
-      return "#ddf2cc";
+      this.studentIsFound = true;
+      this.idToDelete = Number(this.searchValue);
+      return true;
     }
 
-    return " ";
+    return false;
   }
 
   filterStudent(averageScore: number, date: Date): boolean {
@@ -244,18 +247,15 @@ export class AppComponent {
     }
 
   deleteStudent(): void {
-    this.students = this.students.filter(item => item.id !== this.idToDelete);
-    alert("Student with Id " + this.idToDelete.toString() + " was deleted! ");
+    if (Number(this.selectedValue) !== 3 || this.idToDelete === undefined || this.studentIsFound === false ) {
+      alert("You need to find user first in order to delete him/her. Check that you have choosen 3 option and entered students id");
+      return;
+    }
+    if (Number(this.selectedValue) === 3 && this.studentIsFound === true) {
+      this.studentIsFound = false;
+      this.students = this.students.filter(item => item.id !== this.idToDelete);
+      alert("Student with Id " + this.idToDelete.toString() + " was deleted! ");
+    }
   }
 
-  refreshTable(): void {
-  this.students =  this.studentsActual.filter(item => item.id);
-  }
-
-  openModal(id: string): void {
-    this.modalService.open(id);
-  }
-  closeModal(id: string): void {
-    this.modalService.close(id);
-  }
 }

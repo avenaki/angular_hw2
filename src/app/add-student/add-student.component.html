@@ -1,14 +1,26 @@
+<div>
+  <i class="fas fa-plus-square" (click)="openModal('add-student-modal')"></i>
+</div>
+<jw-modal id="add-student-modal">
 <p>add-student works!</p>
-<form [formGroup]="addStudentForm">
-  <input type = "text" formControlName="id">
-<fieldset formGroupName="initial">
-  <input type = "text" formControlName="name">
-  <input type = "text" formControlName="surname">
-  <input type = "text" formControlName="patronymic">
-</fieldset>
-  <input type = "text" formControlName="schedule">
-  <input type = "text" formControlName="isBachelor">
-  <input type = "text" formControlName="hasScholarship">
-  <input type = "text" formControlName="birthDate">
-  <input type = "text" formControlName="averageScore">
+  <div class = "container">
+  <form [formGroup]="addStudentForm" (submit)="onSubmit()">
+
+ <div> <input type = "text" id="id" formControlName="id"></div>
+<div formGroupName="initial">
+  <div> Имя: <input type = "text" id="name" formControlName="name"> </div>
+  <div>Фамилия: <input type = "text" id="surname" formControlName="surname"></div>
+  <div>Отчество: <input type = "text"  id="patronymic" formControlName="patronymic"></div>
+</div>
+ <div> Направление:  <input type = "text" id="schedule" formControlName="schedule"></div>
+  <div>Бакалавриат: <input type = "text" id="isBachelor" formControlName="isBachelor"></div>
+  <div>Стипендия: <input type = "text" id="hasScholarship"  formControlName="hasScholarship"></div>
+  <div>Дата рождения: <input type = "text" id=" birthDate" formControlName="birthDate"></div>
+  <div>Средний балл: <input type = "text" id=" aveageScore" formControlName="averageScore"></div>
+<button type="submit">Отправить</button>
+    <p> Статус формы: {{addStudentForm.status}}</p>
+
 </form>
+  </div>
+
+</jw-modal>

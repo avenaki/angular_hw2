@@ -1,9 +1,11 @@
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { BrowserModule } from "@angular/platform-browser";
+
 import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
 import { ModalModule } from "./_modal";
+import { AddStudentComponent } from "./add-student/add-student.component";
 import { AppComponent } from "./app.component";
-import { AddStudentComponent } from './add-student/add-student.component';
+
 
 @NgModule({
   declarations: [

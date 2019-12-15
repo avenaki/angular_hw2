@@ -1,6 +1,5 @@
 <div class="container">
 
-
   <div class="searchForm">
     <div class="selectForm">
     <div class="miniText">Поиск по </div>
@@ -11,7 +10,6 @@
     </select>
     </div>
 <form >
-
   <input type="text" [(ngModel)] = "searchInput" [ngModelOptions]="{standalone: true}"/>
 </form>
   <button class="searchButton" (click)="searchStudent()">Найти</button>
@@ -20,7 +18,7 @@
   <div class="filterForm">
     <div class="selectForm">
       <div class="miniText">Фильтрация по </div>
-      <select [(ngModel)]="selectedFilteredValue"  [ngModelOptions]="{standalone: true}">
+      <select [(ngModel)]="selectedNowFilter"  [ngModelOptions]="{standalone: true}">
         <option value="1" > Дата рождения </option>
         <option value="2" selected> Средний балл </option>
       </select>
@@ -37,19 +35,18 @@
     </form>
     <button class="filterButton" (click)="filterStudents()">Готово</button>
   </div>
+
   <div class="togglesContainer">
+
   <div *ngIf="status === true">
-    <i class="fas fa-toggle-on toggle " (click)="switchF()"></i>
+    <label for="showFStudents" class="miniText toggleLabel"> Показывать двоечников</label>
+    <i class="fas fa-toggle-on toggle fa-2x "  id="showFStudents"(click)="switchShowFStudents()"></i>
   </div>
   <div *ngIf="status === false">
-    <i class="fas fa-toggle-off toggle " (click)="switchF()"></i>
+    <label for="dontShowFStudents" class="miniText toggleLabel"> Не показывать двоечников</label>
+    <i class="fas fa-toggle-off toggle fa-2x" id="dontShowFStudents" (click)="switchShowFStudents()"></i>
   </div>
-    <div>
-      <i class="fas fa-plus-square" (click)="openModal('add-student-modal')"></i>
-    </div>
   </div>
-
-
 
   <table>
   <tr>
@@ -66,7 +63,7 @@
   </tr>
   <tbody *ngFor="let student of students; let i = index">
 
-<tr class="highlight students"[class.showFStudents]=" studentIsValid(student.averageScore)" [class.showStudent]=" filterStudent(student.averageScore, student.birthDate)" [style.background-color] = "colorStudent(student.name, student.surname, student.id )"  >
+<tr class="needsHighlight students"[class.showFStudents]=" studentIsValid(student.averageScore)" [class.showStudent]=" filterStudent(student.averageScore, student.birthDate)" [class.needsHighlight] = "colorStudent(student.name, student.surname, student.id )"  >
   <td class=" td2 ">{{i+1}}</td>
   <td class=" td1"  >{{student.id}}</td>
   <td >{{student.name}}</td>
@@ -78,12 +75,9 @@
   <td  >{{student.hasScholarship}}</td>
   <td  >{{student.averageScore}}</td>
 </tr>
-
   </tbody>
 </table>
 </div>
-<jw-modal id="add-student-modal">
-<div class="form-group">
 
-</div>
-</jw-modal>
+
+
