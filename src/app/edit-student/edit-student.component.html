@@ -1,0 +1,45 @@
+<i class="far fa-edit" (click)="openModal(currentStudent.id.toString())"></i>
+
+<jw-modal [id]="currentStudent.id.toString()">
+  <div class = "container" >
+    <form [formGroup]="editStudentForm">
+      <div class="rowContainer">
+        <div class="largeText">Id</div>
+        <div class="formInput"><input type = "text"  formControlName="id"  readonly></div>
+      </div>
+      <div formGroupName="fullName">
+        <div class="rowContainer">
+          <div class="largeText">Имя</div>
+          <div class="formInput"><input  type = "text"  formControlName="name"> </div></div>
+        <div class="rowContainer">
+          <div class="largeText">Фамилия</div>
+          <div class="formInput" ><input  type = "text" formControlName="surname"></div>
+        </div>
+        <div class="rowContainer">
+          <div class="largeText">Отчество</div>
+          <div class="formInput" ><input  type = "text"   formControlName="patronymic"></div>
+        </div>
+      </div>
+      <div class="rowContainer">
+        <div class="largeText">Программа</div>
+        <div class="formInput"> <input   type = "text"  formControlName="schedule"></div> </div>
+      <div class="rowContainer">
+        <div class="largeText">Бакалавриат</div>
+        <div class="formInput"> <input   type = "text"  formControlName="isBachelor"></div> </div>
+      <div class="rowContainer">
+        <div class="largeText">Стипендия</div>
+        <div class="formInput"><input  type = "text"   formControlName="hasScholarship"></div> </div>
+      <div class="rowContainer">
+        <div class="largeText">Дата рождения</div>
+        <div class="formInput"><input  type = "text"  formControlName="birthDate"></div>
+      </div>
+      <div class="rowContainer">
+        <div class="largeText">Средняя оценка</div>
+        <div class="formInput"><input type = "text"  formControlName="averageScore"></div> </div>
+    </form>
+  </div>
+  <div class="formStatus"> Статус формы: {{editStudentForm.status}}</div>
+  <div class="container"><button class="addStudent" (click)="submitStudent()">Отправить</button> </div>
+  <div class="container"><button class="deleteButton" (click)="closeModal('edit-student-modal')">Закрыть</button> </div>
+</jw-modal>
+
