@@ -1,6 +1,7 @@
 <i class="far fa-edit" (click)="openModal(currentStudent.id.toString())"></i>
 
 <jw-modal [id]="currentStudent.id.toString()">
+  <div class = "closeModal" (click)="closeModal(currentStudent.id.toString())"><i class="fas fa-times-circle fa-2x"></i> </div>
   <div class = "container" >
     <form [formGroup]="editStudentForm">
       <div class="rowContainer">
@@ -39,7 +40,7 @@
     </form>
   </div>
   <div class="formStatus"> Статус формы: {{editStudentForm.status}}</div>
-  <div class="container"><button class="addStudent" (click)="submitStudent()">Отправить</button> </div>
-  <div class="container"><button class="deleteButton" (click)="closeModal('edit-student-modal')">Закрыть</button> </div>
+  <div class="container"><button class="addStudent" (click)="submitStudent()">Сохранить</button> </div>
+
 </jw-modal>
 

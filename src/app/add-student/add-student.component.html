@@ -2,6 +2,7 @@
   <button class="addButton " id="addStudentPlus"(click)="openModal('add-student-modal')">Добавить студента</button>
 </div>
 <jw-modal  id="add-student-modal">
+  <div class = "closeModal" (click)="closeModal('add-student-modal')"> <i class="fas fa-times-circle fa-2x"></i> </div>
   <div class = "container">
   <form [formGroup]="addStudentForm">
     <div class="rowContainer">

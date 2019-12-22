@@ -55,7 +55,7 @@ export class EditStudentComponent implements OnInit {
       this.editStudentForm.controls["schedule"].value,   Number(this.editStudentForm.controls["averageScore"].value),
       Boolean(this.editStudentForm.controls["isBachelor"].value), Boolean(this.editStudentForm.controls["hasScholarship"].value));
     this.editedStudentData.emit(newStudent);
-    this.modalService.close("add-student-modal");
+    this.modalService.close(this.currentStudent.id.toString());
   }
   birthDateValidator(control: FormControl): {[s: string]: boolean} {
     const valueToDate = new Date(control.value);

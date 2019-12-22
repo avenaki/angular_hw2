@@ -63,3 +63,6 @@ input {
   font-size: 18px;
   text-align: right;
 }
+.closeModal {
+  margin-left: 96%;
+}
