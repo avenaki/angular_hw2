@@ -1,29 +1,8 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { AddStudentComponent } from "./add-student/add-student.component";
+import { Student } from "./student";
 
-class Student {
-  id: number;
-  name: string;
-  surname: string;
-  patronymic: string;
-  birthDate: Date;
-  schedule: string;
-  averageScore: number;
-  isBachelor: boolean;
-  hasScholarship: boolean;
-  constructor(id: number, name: string, surname: string, patronymic: string, birthDate: Date,
-              schedule: string, averageScore: number, isBachelor: boolean, hasScholarship: boolean ) {
-    this.id = id;
-    this.name = name;
-    this.surname = surname;
-    this.patronymic = patronymic;
-    this.birthDate = birthDate;
-    this.schedule = schedule;
-    this.averageScore = averageScore;
-    this.isBachelor = isBachelor;
-    this.hasScholarship = hasScholarship;
-  }
-}
+
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -138,7 +117,10 @@ export class AppComponent {
   inputCheck2: string;
   filterInput2: string;
   studentIsFound: boolean = false;
-clickAdd: boolean = false;
+  chosenStudent: Student;
+  @Output() sendStudentData:  EventEmitter<Student> = new EventEmitter<Student>();
+  foundStudentId: number;
+
   switchShowFStudents(): void {
     this.status = !this.status;
   }
@@ -167,7 +149,7 @@ clickAdd: boolean = false;
       return true;
     }
     if (this.searchStatus && id === Number(this.searchValue) && Number(this.selectedValue) === 3) {
-      this.studentIsFound = true;
+      this.foundStudentId = id;
       this.idToDelete = Number(this.searchValue);
       return true;
     }
@@ -256,4 +238,19 @@ clickAdd: boolean = false;
     }
   }
 
+  addStudent(student: Student): void {
+  this.students.push(student);
+
+  }
+
+  editStudent(student: Student): void {
+const index = this.students.findIndex(currentStudent => currentStudent.id === student.id);
+this.students[index] = student;
+  }
+  editChosenStudent(student: Student): void {
+  this.chosenStudent = student;
+  }
+  trackById(index: number, student: Student): number {
+    return student.id;
+  }
 }

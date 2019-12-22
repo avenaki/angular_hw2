@@ -1,1 +1,89 @@
-/* You can add global styles to this file, and also import other style files */
+.miniText{
+  font-weight: 300;
+  font-size: 12px;
+  font-weight: 500;
+  font-family:
+    'Roboto','Helvetica','Arial',sans-serif;
+  color: darkslategrey;
+  margin-left: 20px;
+}
+.toggleLabel, toggle{
+  display: inline-block;
+  margin-right: 5px;
+}
+.toggleLabel {
+  vertical-align: super;
+}
+.editButton {
+  border-radius: 4px;
+  flex: 1 1;
+  width: 110px;
+  border: 1px solid dodgerblue;
+  background-color: white;
+  font-size: 14px;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+  color: midnightblue;
+  margin-left: 10px;
+}
+.editButton:hover {
+  background-color: dodgerblue;
+  color:white;
+}
+.filterButton {
+  border-radius: 4px;
+  flex: 1 1;
+  width: 100px;
+  font-weight: 500;
+  border: 1px solid midnightblue;
+  background-color: white;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  color: midnightblue;
+  margin-left: 10px;
+}
+.filterButton:hover {
+  color:white;
+  background-color: midnightblue;
+  opacity:0.8;
+}
+.searchButton {
+  border-radius: 4px;
+  flex: 1 1;
+  width: 100px;
+  border: 1px solid midnightblue;
+  background-color: white;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  color: midnightblue;
+  margin-left: 10px;
+}
+
+.searchButton:hover{
+  color:white;
+  background-color: midnightblue;
+  opacity:0.8;
+}
+.addButton {
+  border-radius: 4px;
+  flex: 1 1;
+  width: 150px;
+  border: 1px solid midnightblue;
+  background-color:midnightblue;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  margin-left: 10px;
+}
+
+.addButton:hover{
+  color:midnightblue;
+  background-color: white;
+  opacity:0.8;
+}
+.formInput {
+  margin-left: 5%;
+  margin-top: 2%;
+}

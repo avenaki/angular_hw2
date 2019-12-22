@@ -1,26 +1,44 @@
 <div>
-  <i class="fas fa-plus-square" (click)="openModal('add-student-modal')"></i>
+  <button class="addButton " id="addStudentPlus"(click)="openModal('add-student-modal')">Добавить студента</button>
 </div>
-<jw-modal id="add-student-modal">
-<p>add-student works!</p>
+<jw-modal  id="add-student-modal">
   <div class = "container">
-  <form [formGroup]="addStudentForm" (submit)="onSubmit()">
-
- <div> <input type = "text" id="id" formControlName="id"></div>
-<div formGroupName="initial">
-  <div> Имя: <input type = "text" id="name" formControlName="name"> </div>
-  <div>Фамилия: <input type = "text" id="surname" formControlName="surname"></div>
-  <div>Отчество: <input type = "text"  id="patronymic" formControlName="patronymic"></div>
+  <form [formGroup]="addStudentForm">
+    <div class="rowContainer">
+    <div class="largeText">Id</div>
+ <div class="formInput"><input type = "text" id="id" formControlName="id" ></div>
+    </div>
+<div formGroupName="fullName">
+  <div class="rowContainer">
+    <div class="largeText">Имя</div>
+    <div class="formInput"><input  type = "text" id="name" formControlName="name"> </div></div>
+  <div class="rowContainer">
+    <div class="largeText">Фамилия</div>
+  <div class="formInput" ><input  type = "text" id="surname" formControlName="surname"></div>
+  </div>
+  <div class="rowContainer">
+  <div class="largeText">Отчество</div>
+  <div class="formInput" ><input  type = "text"  id="patronymic" formControlName="patronymic"></div>
+  </div>
 </div>
- <div> Направление:  <input type = "text" id="schedule" formControlName="schedule"></div>
-  <div>Бакалавриат: <input type = "text" id="isBachelor" formControlName="isBachelor"></div>
-  <div>Стипендия: <input type = "text" id="hasScholarship"  formControlName="hasScholarship"></div>
-  <div>Дата рождения: <input type = "text" id=" birthDate" formControlName="birthDate"></div>
-  <div>Средний балл: <input type = "text" id=" aveageScore" formControlName="averageScore"></div>
-<button type="submit">Отправить</button>
-    <p> Статус формы: {{addStudentForm.status}}</p>
-
+    <div class="rowContainer">
+    <div class="largeText">Программа</div>
+      <div class="formInput"> <input   type = "text" id="schedule" formControlName="schedule"></div> </div>
+    <div class="rowContainer">
+    <div class="largeText">Бакалавриат</div>
+      <div class="formInput"> <input   type = "text" id="isBachelor" formControlName="isBachelor"></div> </div>
+    <div class="rowContainer">
+      <div class="largeText">Стипендия</div>
+      <div class="formInput"><input  type = "text" id="hasScholarship"  formControlName="hasScholarship"></div> </div>
+    <div class="rowContainer">
+    <div class="largeText">Дата рождения</div>
+    <div class="formInput"><input  type = "text" id=" birthDate" formControlName="birthDate"></div>
+    </div>
+    <div class="rowContainer">
+    <div class="largeText">Средняя оценка</div>
+      <div class="formInput"><input type = "text" id=" aveageScore" formControlName="averageScore"></div> </div>
 </form>
   </div>
-
+  <div class="formStatus"> Статус формы: {{addStudentForm.status}}</div>
+  <div class="container"><button class="addStudent" (click)="submitStudent()">Отправить</button> </div>
 </jw-modal>

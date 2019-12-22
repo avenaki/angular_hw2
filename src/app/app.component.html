@@ -34,7 +34,9 @@
     </form>
     <button class="filterButton" (click)="filterStudents()">Готово</button>
   </div>
-
+<div class="togglesContainer">
+  <app-add-student  (newStudentData)="addStudent($event)"></app-add-student>
+</div>
   <div class="togglesContainer">
 
   <div *ngIf="status === true">
@@ -59,21 +61,27 @@
     <th class="thLast">Бакалавриат  <i class="fas fa-caret-up" (click)="sortStudents('isBachelor', 'ASC')"></i> <i class="fas fa-caret-down" (click)="sortStudents('isBachelor', 'DESC')"></i></th>
     <th class="thLast">Стипендия  <i class="fas fa-caret-up" (click)="sortStudents('hasScholarship', 'ASC')"></i><i class="fas fa-caret-down" (click)="sortStudents('hasScholarship', 'DESC')"></i></th>
     <th class="thLast">Средний балл  <i class="fas fa-caret-up" (click)="sortStudents('averageScore', 'ASC')"></i><i class="fas fa-caret-down" (click)="sortStudents('averageScore', 'DESC')"></i></th>
+    <th class="th2">Редактировать</th>
     <th class="th2"> Удалить</th>
-  </tr>
-  <tbody *ngFor="let student of students; let i = index">
 
-<tr class="needsHighlight students"[class.showFStudents]=" studentIsValid(student.averageScore)" [class.showStudent]=" filterStudent(student.averageScore, student.birthDate)" [class.needsHighlight] = "colorStudent(student.name, student.surname, student.id )"  >
+  </tr>
+  <tbody *ngFor="let student of students; let i = index; trackBy: trackById">
+
+<tr class="needsHighlight students"[class.showFStudents]=" studentIsValid(student.averageScore)"
+    [class.showStudent]=" filterStudent(student.averageScore, student.birthDate)"
+    [class.needsHighlight] = "colorStudent(student.name, student.surname, student.id )"
+   >
   <td class=" td2 ">{{i+1}}</td>
   <td class=" td1"  >{{student.id}}</td>
   <td >{{student.name}}</td>
   <td  >{{student.surname}}</td>
   <td  >{{student.patronymic}}</td>
-  <td  >{{student.birthDate.toDateString() }}</td>
+  <td  >{{student.birthDate.toDateString() | date}}</td>
   <td  >{{student.schedule}}</td>
   <td  >{{student.isBachelor}}</td>
   <td  >{{student.hasScholarship}}</td>
   <td  >{{student.averageScore}}</td>
+  <td ><app-edit-student [currentStudent]= "student" (editedStudentData)="editStudent($event)"></app-edit-student></td>
   <td class="tdDel td3"> <i class="fas fa-times-circle" (click)="deleteStudent(student.id)"></i></td>
 </tr>
   </tbody>
