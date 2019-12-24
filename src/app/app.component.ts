@@ -239,7 +239,7 @@ export class AppComponent {
   }
 
   addStudent(student: Student): void {
-    if (this.students.filter(item => item.id === student.id)) {
+    if (this.students.filter(item => item.id === student.id).length === 1) {
       alert(" Student with such id already exists!!!");
       return;
     }

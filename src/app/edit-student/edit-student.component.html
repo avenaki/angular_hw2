@@ -1,46 +1,86 @@
-<i class="far fa-edit" (click)="openModal(currentStudent.id.toString())"></i>
-
-<jw-modal [id]="currentStudent.id.toString()">
-  <div class = "closeModal" (click)="closeModal(currentStudent.id.toString())"><i class="fas fa-times-circle fa-2x"></i> </div>
-  <div class = "container" >
+<div>
+  <i class="far fa-edit" (click)="openModal(currentStudent.id.toString())"></i>
+</div>
+<jw-modal  [id]="currentStudent.id.toString()">
+  <div class = "closeModal" (click)="closeModal(currentStudent.id.toString())"> <i class="fas fa-times-circle "></i> </div>
+  <div class = "container">
     <form [formGroup]="editStudentForm">
       <div class="rowContainer">
-        <div class="largeText">Id</div>
-        <div class="formInput"><input type = "text"  formControlName="id"  readonly></div>
+        <div class="largeText">Студ.билет</div>
+        <div class="formInput"><input class="inputStyle"  type = "number"  formControlName="id" readonly></div>
+      </div>
+      <div class="alert alert-danger"
+           *ngIf="editStudentForm.controls['id'].invalid && editStudentForm.controls['id'].touched">
+        Укажите id
       </div>
       <div formGroupName="fullName">
         <div class="rowContainer">
           <div class="largeText">Имя</div>
-          <div class="formInput"><input  type = "text"  formControlName="name"> </div></div>
+          <div class="formInput"> <input class="inputStyle"   type = "text" id="name" formControlName="name"> </div></div>
+        <div class="alert alert-danger"
+             *ngIf="editStudentForm.get('fullName.name').invalid && editStudentForm.get('fullName.name').touched">
+          Допускается только кириллица
+        </div>
         <div class="rowContainer">
           <div class="largeText">Фамилия</div>
-          <div class="formInput" ><input  type = "text" formControlName="surname"></div>
+          <div class="formInput" ><input class="inputStyle"   type = "text" id="surname" formControlName="surname"></div>
+        </div>
+        <div class="alert alert-danger"
+             *ngIf="editStudentForm.get('fullName.surname').invalid && editStudentForm.get('fullName.surname').touched">
+          Допускается только кириллица
         </div>
         <div class="rowContainer">
           <div class="largeText">Отчество</div>
-          <div class="formInput" ><input  type = "text"   formControlName="patronymic"></div>
+          <div class="formInput" ><input class="inputStyle"   type = "text"  id="patronymic" formControlName="patronymic"></div>
         </div>
+        <div class="alert alert-danger"
+             *ngIf="editStudentForm.get('fullName.patronymic').invalid && editStudentForm.get('fullName.patronymic').touched">
+          Допускается только кириллица
+        </div>
+      </div>
+      <div class="alert alert-danger"
+           *ngIf="editStudentForm.controls['fullName'].invalid && editStudentForm.controls['fullName'].touched &&
+editStudentForm.get('fullName.patronymic').touched && editStudentForm.get('fullName.name').touched &&
+editStudentForm.get('fullName.surname').touched">
+        Имя не должно совпадать с фамилией или отчеством!
       </div>
       <div class="rowContainer">
         <div class="largeText">Программа</div>
-        <div class="formInput"> <input   type = "text"  formControlName="schedule"></div> </div>
+        <div class="formInput"> <input class="inputStyle"    type = "text" id="schedule" formControlName="schedule"></div> </div>
+      <div class="alert alert-danger"
+           *ngIf="editStudentForm.controls['schedule'].invalid && editStudentForm.controls['schedule'].touched">
+        Программа не введена/допускается только кириллица и символ '-'
+      </div>
       <div class="rowContainer">
-        <div class="largeText">Бакалавриат</div>
-        <div class="formInput"> <input   type = "text"  formControlName="isBachelor"></div> </div>
+        <div class="largeText2">Бакалавриат</div>
+        <div class="formInput"> <select class="selectBoolean" formControlName="isBachelor">
+          <option class="booleanOption" value="true" selected>Да</option>
+          <option class="booleanOption" value="false">Нет</option>
+        </select></div>
+      </div>
       <div class="rowContainer">
-        <div class="largeText">Стипендия</div>
-        <div class="formInput"><input  type = "text"   formControlName="hasScholarship"></div> </div>
+        <div class="largeText2">Стипендия</div>
+        <div class="formInput" >
+          <select class="selectBoolean" formControlName="hasScholarship">
+            <option class="booleanOption" value="true" selected>Да</option>
+            <option class="booleanOption" value="false">Нет</option>
+          </select> </div> </div>
       <div class="rowContainer">
         <div class="largeText">Дата рождения</div>
-        <div class="formInput"><input  type = "text"  formControlName="birthDate"></div>
+        <div class="formInput"><input class="inputStyle"   type = "date" id=" birthDate" formControlName="birthDate"></div>
+      </div>
+      <div class="alert alert-danger"
+           *ngIf="editStudentForm.controls['birthDate'].invalid && editStudentForm.controls['birthDate'].touched">
+        Дата рождения должна быть меньше текущей даты минус 10 лет
       </div>
       <div class="rowContainer">
         <div class="largeText">Средняя оценка</div>
-        <div class="formInput"><input type = "text"  formControlName="averageScore"></div> </div>
+        <div class="formInput"><input class="inputStyle"  type = "number" id=" aveageScore" formControlName="averageScore"></div> </div>
+      <div class="alert alert-danger"
+           *ngIf="editStudentForm.controls['averageScore'].invalid && editStudentForm.controls['averageScore'].touched">
+        Оценка - число от 0 до 5
+      </div>
     </form>
   </div>
-  <div class="formStatus"> Статус формы: {{editStudentForm.status}}</div>
-  <div class="container"><button class="addStudent" (click)="submitStudent()">Сохранить</button> </div>
-
+  <div class="container"><button class="addStudent" (click)="submitStudent(this.editStudentForm,  this.editedStudentData, currentStudent.id.toString() )">Изменить</button> </div>
 </jw-modal>
-

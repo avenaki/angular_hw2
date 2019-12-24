@@ -84,6 +84,93 @@
   opacity:0.8;
 }
 .formInput {
-  margin-left: 5%;
+  margin-right: 8%;
   margin-top: 2%;
 }
+
+.selectBoolean {
+  width:304px;
+  position: absolute;
+  padding: 5px 0;
+  height: 30px;
+  background: none transparent;
+  border: 2px solid #6b6b6b ;
+  border-radius: 8px;
+  display:block;
+}
+
+.booleanOption {
+  font-size: 16px;
+  font-weight: 200;
+  font-family: 'Roboto', sans-serif;
+}
+jw-modal .jw-modal {
+  width:50%;
+  height:100%;
+  margin-left: 25%;
+  position:fixed;
+}
+.largeText2 {
+  font-size: 16px;
+  align-self: center;
+  color: #4a4a4a;
+  font-family: 'Roboto', sans-serif;
+  width:140px;
+}
+.alert-danger {
+  color: #db4307;
+  font-size: 10px;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  align-self: center;
+}
+
+.inputStyle {
+  font-size: 16px;
+  display: block;
+  min-width: 300px;
+  background-color: transparent;
+  font-family: 'Roboto', sans-serif;
+  border: none;
+  border-bottom: 1px solid #6b6b6b;
+}
+.inputStyle:focus {
+  outline: none;
+}
+
+.rowContainer {
+  display: flex;
+  flex-direction: row;
+  width:80%;
+  height: 40px;
+}
+
+.largeText {
+  font-size: 16px;
+  align-self: center;
+  color: #4a4a4a;
+  width:300px;
+  font-family: 'Roboto', sans-serif;
+
+}
+.addStudent {
+  border-radius: 4px;
+  width: 150px;
+  border: 1px solid midnightblue;
+  background-color:midnightblue;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  align-self: flex-end;
+  margin-top: 18px;
+  margin-left: 90%;
+}
+
+.addStudent:hover{
+  color:midnightblue;
+  background-color: white;
+  opacity:0.8;
+}
+
+
