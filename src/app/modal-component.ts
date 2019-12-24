@@ -15,7 +15,7 @@ export class ModalComponent   {
   protected closeModal(id: string): void {
     this.modalService.close(id);
   }
-  protected submitStudent(myForm: FormGroup, emitter: EventEmitter<Student>, id: String): void {
+  protected submitStudent(myForm: FormGroup, emitter: EventEmitter<Student>, id: string): void {
     const controls = myForm.controls;
     if (myForm.invalid) {
       Object.keys(controls).forEach(controlName => controls[controlName].markAsTouched());
@@ -26,7 +26,7 @@ export class ModalComponent   {
       myForm.controls["fullName"].value["name"], myForm.controls["fullName"].value["surname"],
       myForm.controls["fullName"].value["patronymic"], new Date(myForm.controls["birthDate"].value),
       myForm.controls["schedule"].value,   Number(myForm.controls["averageScore"].value),
-      Boolean(myForm.controls["isBachelor"].value), Boolean(myForm.controls["hasScholarship"].value))
+      Boolean(myForm.controls["isBachelor"].value), Boolean(myForm.controls["hasScholarship"].value));
       emitter.emit(newStudent);
     this.modalService.close(id);
   }
