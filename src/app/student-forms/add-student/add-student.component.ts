@@ -1,16 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators  } from "@angular/forms";
 import { ModalService } from "src/app/_modal";
-import { ModalComponent } from "../modal-component";
-import { Student } from "../student";
+import { Student } from "../../student";
+import {  ModalStudentComponent } from "../modal-component";
 import { Validator } from "../validators";
 
 @Component({
   selector: "app-add-student",
   templateUrl: "./add-student.component.html",
-  styleUrls: ["./add-student.component.css"]
+  styleUrls: ["./add-student.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddStudentComponent extends ModalComponent implements OnInit {
+export class AddStudentComponent extends ModalStudentComponent implements OnInit {
   constructor(protected fb: FormBuilder, protected modalService: ModalService, protected validators: Validator) {
     super(fb, modalService, validators);
   }

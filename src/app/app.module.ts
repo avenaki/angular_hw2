@@ -1,24 +1,23 @@
 import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
-import { ModalModule } from "./_modal";
-import { AddStudentComponent } from "./add-student/add-student.component";
 import { AppComponent } from "./app.component";
+import { InitialsPipe } from "./initials.pipe";
+import { StudentFormsModule } from "./student-forms/student-forms.module";
+import { TendencyDirective } from "./tendency.directive";
 
-import { EditStudentComponent } from "./edit-student/edit-student.component";
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddStudentComponent,
-    EditStudentComponent,
+    TendencyDirective,
+    InitialsPipe,
   ],
   imports: [
     BrowserModule,
+    StudentFormsModule,
     FormsModule,
-    ModalModule,
-    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

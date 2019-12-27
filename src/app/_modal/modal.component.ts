@@ -1,12 +1,13 @@
 // tslint:disable-next-line:encoding
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
 import { ModalService } from "./modal.service";
 
 @Component({
     selector: "jw-modal",
     templateUrl: "modal.component.html",
     styleUrls: ["modal.component.less"],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalComponent implements OnInit, OnDestroy {
     @Input() id: string;

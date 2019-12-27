@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { AddStudentComponent } from "./add-student/add-student.component";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from "@angular/core";
 import { Student } from "./student";
 
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  styleUrls: ["./app.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class AppComponent {
@@ -20,6 +20,7 @@ export class AppComponent {
       birthDate: new Date("1998-11-1"),
       schedule: "Бизнес-информатика",
       averageScore: 5,
+      previousAverageScore: 4,
       isBachelor: true,
       hasScholarship: true
     },
@@ -31,6 +32,7 @@ export class AppComponent {
       birthDate: new Date("1999-03-01"),
       schedule: "Программная-инженерия",
       averageScore: 4,
+      previousAverageScore: 3,
       isBachelor: true,
       hasScholarship: true
     },
@@ -42,6 +44,7 @@ export class AppComponent {
       birthDate: new Date("1999-02-11"),
       schedule: "Экономика",
       averageScore: 3,
+      previousAverageScore: 4,
       isBachelor: true,
       hasScholarship: false
 
@@ -55,8 +58,10 @@ export class AppComponent {
       birthDate: new Date("1986-11-11"),
       schedule: "Менеджмент",
       averageScore: 4,
+      previousAverageScore: 3,
       isBachelor: false,
-      hasScholarship: false},
+      hasScholarship: false
+    },
     {
       id: 7,
       name: "Екатерина",
@@ -65,6 +70,7 @@ export class AppComponent {
       birthDate: new Date("1997-12-03"),
       schedule: "Менеджмент",
       averageScore: 2,
+      previousAverageScore: 3,
       isBachelor: false,
       hasScholarship: false
     },
@@ -76,6 +82,7 @@ export class AppComponent {
       birthDate: new Date("1995-12-22"),
       schedule: "Экономика",
       averageScore: 2,
+      previousAverageScore: 2,
       isBachelor: true,
       hasScholarship: false
     },
@@ -87,6 +94,7 @@ export class AppComponent {
       birthDate: new Date("1999-08-15"),
       schedule: "Программная-инженерия",
       averageScore: 4,
+      previousAverageScore: 3,
       isBachelor: true,
       hasScholarship: true
     },
@@ -98,6 +106,7 @@ export class AppComponent {
       birthDate: new Date("1999-06-24"),
       schedule: "Менеджмент",
       averageScore: 2,
+      previousAverageScore: 3,
       isBachelor: true,
       hasScholarship: false
     },
@@ -118,15 +127,17 @@ export class AppComponent {
   filterInput2: string;
   studentIsFound: boolean = false;
   chosenStudent: Student;
-  @Output() sendStudentData:  EventEmitter<Student> = new EventEmitter<Student>();
+  @Output() sendStudentData: EventEmitter<Student> = new EventEmitter<Student>();
   foundStudentId: number;
 
   switchShowFStudents(): void {
     this.status = !this.status;
   }
+
   studentIsValid(score: number): boolean {
     return score < 3 && this.status === true;
   }
+
   searchStudent(): void {
     this.searchStatus = true;
     this.studentIsFound = false;
@@ -139,6 +150,7 @@ export class AppComponent {
     this.inputCheck1 = this.filterInput1;
     this.inputCheck2 = this.filterInput2;
   }
+
   colorStudent(name: string, surname: string, id: number): boolean {
     if (this.searchStatus && surname.toLowerCase() === this.searchValue && Number(this.selectedValue) === 2) {
       this.studentIsFound = true;
@@ -161,16 +173,16 @@ export class AppComponent {
     if (!this.inputCheck1 && !this.inputCheck2) {
       return false;
     }
-    if (Number(this.selectedFilteredValue) === 1 && this.filterStatus  ) {
+    if (Number(this.selectedFilteredValue) === 1 && this.filterStatus) {
       const realDate1 = new Date(this.inputCheck1);
       const realDate2 = new Date(this.inputCheck2);
-      if (this.inputCheck1   === undefined) {
-        if ( date.getTime() >= realDate2.getTime()) {
+      if (this.inputCheck1 === undefined) {
+        if (date.getTime() >= realDate2.getTime()) {
           return true;
         }
       }
       if (this.inputCheck2 === undefined) {
-        if ( realDate1.getTime() >= date.getTime() ) {
+        if (realDate1.getTime() >= date.getTime()) {
           return true;
         }
       }
@@ -179,16 +191,16 @@ export class AppComponent {
         return true;
       }
     }
-    if (Number(this.selectedFilteredValue) === 2 && this.filterStatus ) {
+    if (Number(this.selectedFilteredValue) === 2 && this.filterStatus) {
       const realNumber1 = Number(this.inputCheck1);
       const realNumber2 = Number(this.inputCheck2);
-      if (this.inputCheck1   === undefined) {
-        if ( realNumber2 < averageScore) {
+      if (this.inputCheck1 === undefined) {
+        if (realNumber2 < averageScore) {
           return true;
         }
       }
-      if (this.inputCheck2  === undefined) {
-        if ( realNumber1 > averageScore  ) {
+      if (this.inputCheck2 === undefined) {
+        if (realNumber1 > averageScore) {
           return true;
         }
       }
@@ -197,7 +209,7 @@ export class AppComponent {
       }
     }
     return false;
-    }
+  }
 
   sortStudents<T>(propName: keyof Student, order: "ASC" | "DESC"): void {
     if (propName === "birthDate") {
@@ -223,10 +235,10 @@ export class AppComponent {
         return 0;
       });
     }
-      if (order === "DESC") {
-        this.students.reverse();
-      }
+    if (order === "DESC") {
+      this.students.reverse();
     }
+  }
 
   deleteStudent(id: number): void {
     const result = confirm("Вы точно хотите удалить студента?");
@@ -243,18 +255,34 @@ export class AppComponent {
       alert(" Student with such id already exists!!!");
       return;
     }
-  this.students.push(student);
+    this.students.push(student);
 
   }
 
   editStudent(student: Student): void {
-const index = this.students.findIndex(currentStudent => currentStudent.id === student.id);
-this.students[index] = student;
+    const index = this.students.findIndex(currentStudent => currentStudent.id === student.id);
+    student.previousAverageScore = this.students[index].averageScore;
+    this.students[index] = student;
+
   }
+
   editChosenStudent(student: Student): void {
-  this.chosenStudent = student;
+    this.chosenStudent = student;
   }
+
   trackById(index: number, student: Student): number {
     return student.id;
   }
+
+  calculateTendency(currentScore: number, previousScore: number): number {
+    if (currentScore > previousScore) {
+      return 2;
+    }
+    if (currentScore < previousScore) {
+      return 1;
+    }
+    return 0;
+  }
+
+
 }

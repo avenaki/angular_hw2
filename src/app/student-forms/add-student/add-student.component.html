@@ -7,7 +7,7 @@
   <form [formGroup]="addStudentForm">
     <div class="rowContainer">
     <div class="largeText">Cтуд. билет</div>
- <div class="formInput"><input class="inputStyle"  type = "number" id="id" formControlName="id" ></div>
+ <div class="formInput"><input class="inputStyle"  type = "number"  formControlName="id" ></div>
     </div>
     <div class="alert alert-danger"
          *ngIf="addStudentForm.controls['id'].invalid && addStudentForm.controls['id'].touched">
@@ -16,7 +16,7 @@
 <div formGroupName="fullName">
   <div class="rowContainer">
     <div class="largeText">Имя</div>
-    <div class="formInput"> <input class="inputStyle"   type = "text" id="name" formControlName="name"> </div></div>
+    <div class="formInput"> <input class="inputStyle"   type = "text" formControlName="name"> </div></div>
   <div class="alert alert-danger"
        *ngIf="addStudentForm.get('fullName.name').invalid && addStudentForm.get('fullName.name').touched">
     Допускается только кириллица
@@ -31,7 +31,7 @@
   </div>
   <div class="rowContainer">
   <div class="largeText">Отчество</div>
-  <div class="formInput" ><input class="inputStyle"   type = "text"  id="patronymic" formControlName="patronymic"></div>
+  <div class="formInput" ><input class="inputStyle"   type = "text"   formControlName="patronymic"></div>
   </div>
   <div class="alert alert-danger"
        *ngIf="addStudentForm.get('fullName.patronymic').invalid && addStudentForm.get('fullName.patronymic').touched">
@@ -46,7 +46,7 @@ addStudentForm.get('fullName.surname').touched">
     </div>
     <div class="rowContainer">
     <div class="largeText">Программа</div>
-      <div class="formInput"> <input class="inputStyle"    type = "text" id="schedule" formControlName="schedule"></div> </div>
+      <div class="formInput"> <input class="inputStyle"    type = "text" formControlName="schedule"></div> </div>
     <div class="alert alert-danger"
          *ngIf="addStudentForm.controls['schedule'].invalid && addStudentForm.controls['schedule'].touched">
       Программа не введена/допускается только кириллица и символ '-'
@@ -67,7 +67,7 @@ addStudentForm.get('fullName.surname').touched">
       </select> </div> </div>
     <div class="rowContainer">
     <div class="largeText">Дата рождения</div>
-    <div class="formInput"><input class="inputStyle"   type = "date" id=" birthDate" formControlName="birthDate"></div>
+    <div class="formInput"><input class="inputStyle"   type = "date"  formControlName="birthDate"></div>
     </div>
     <div class="alert alert-danger"
          *ngIf="addStudentForm.controls['birthDate'].invalid && addStudentForm.controls['birthDate'].touched">
@@ -75,7 +75,7 @@ addStudentForm.get('fullName.surname').touched">
     </div>
     <div class="rowContainer">
     <div class="largeText">Средняя оценка</div>
-      <div class="formInput"><input class="inputStyle"  type = "number" id=" aveageScore" formControlName="averageScore"></div> </div>
+      <div class="formInput"><input class="inputStyle"  type = "number" formControlName="averageScore"></div> </div>
     <div class="alert alert-danger"
          *ngIf="addStudentForm.controls['averageScore'].invalid && addStudentForm.controls['averageScore'].touched">
       Оценка - число от 0 до 5

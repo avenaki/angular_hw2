@@ -47,13 +47,13 @@ option {
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
 }
-table {
-  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+.studentsTable {
+  font-family: 'Roboto', sans-serif;
   background: white;
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  margin-top: 14px;
+  margin-top: 16px;
   height: 50%;
 }
 th {
@@ -117,6 +117,8 @@ th:last-child {
 td {
   border-bottom: 1px solid #4a4a4a;
   height:34px;
+  text-align: center;
+  font-weight:300;
 }
 th:hover {
   opacity:0.7;
@@ -151,8 +153,12 @@ tr:last-child td:last-child {
 .tdDel {
   text-align: center;
 }
-.th2{
-  width:15px;
+.thSmall{
+  width:10px;
+}
+
+.thMiddle{
+  width:18px;
 }
 
 

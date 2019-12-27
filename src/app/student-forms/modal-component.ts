@@ -1,10 +1,10 @@
 import { EventEmitter, OnInit, Output } from "@angular/core";
 import { Form, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { ModalService } from "./_modal";
-import { Student } from "./student";
+import { ModalService } from "../_modal";
+import { Student } from "../student";
 import { Validator } from "./validators";
 
-export class ModalComponent   {
+export class ModalStudentComponent   {
   constructor(protected fb: FormBuilder, protected modalService: ModalService, protected validators: Validator) {}
   myForm: FormGroup ;
   clickedAdd: boolean;
@@ -26,6 +26,7 @@ export class ModalComponent   {
       myForm.controls["fullName"].value["name"], myForm.controls["fullName"].value["surname"],
       myForm.controls["fullName"].value["patronymic"], new Date(myForm.controls["birthDate"].value),
       myForm.controls["schedule"].value,   Number(myForm.controls["averageScore"].value),
+      Number(myForm.controls["averageScore"].value),
       Boolean(myForm.controls["isBachelor"].value), Boolean(myForm.controls["hasScholarship"].value));
       emitter.emit(newStudent);
     this.modalService.close(id);
