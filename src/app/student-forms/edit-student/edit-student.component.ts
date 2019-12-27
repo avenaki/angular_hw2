@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ModalService } from "../../_modal";
 import { Student } from "../../student";
-import { AddStudentComponent } from "../add-student/add-student.component";
 import { ModalStudentComponent } from "../modal-component";
 import { Validator } from "../validators";
 
@@ -38,7 +37,7 @@ export class EditStudentComponent extends ModalStudentComponent implements OnIni
       hasScholarship: new FormControl(this.currentStudent.hasScholarship, [Validators.required, Validators.pattern(/(true|false)/)]),
       averageScore: new FormControl(this.currentStudent.averageScore, [Validators.required, Validators.pattern(/[0-5]/),
       this.validator.markValidator]),
-      birthDate: new FormControl(month + "-" + day + "-" + year, [Validators.required, this.validator.birthDateValidator]),
+      birthDate: new FormControl(year + "-" + month + "-" + day, [Validators.required, this.validator.birthDateValidator]),
       isBachelor: new FormControl(this.currentStudent.isBachelor, [Validators.required, Validators.pattern(/(true|false)/)])});
   }
 }

@@ -1,13 +1,11 @@
-import { EventEmitter, OnInit, Output } from "@angular/core";
-import { Form, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { EventEmitter,  Output } from "@angular/core";
+import {  FormBuilder, FormGroup } from "@angular/forms";
 import { ModalService } from "../_modal";
 import { Student } from "../student";
 import { Validator } from "./validators";
 
 export class ModalStudentComponent   {
   constructor(protected fb: FormBuilder, protected modalService: ModalService, protected validators: Validator) {}
-  myForm: FormGroup ;
-  clickedAdd: boolean;
   @Output() newStudentData: EventEmitter<Student> = new EventEmitter<Student>();
   protected openModal(id: string): void {
     this.modalService.open(id);

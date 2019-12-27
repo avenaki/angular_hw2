@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from "@angular/core";
+import { ChangeDetectionStrategy,  Component, EventEmitter, Output } from "@angular/core";
 import { Student } from "./student";
 
 
@@ -111,7 +111,6 @@ export class AppComponent {
       hasScholarship: false
     },
   ];
-  studentsActual = [];
   status: boolean = false;
   searchStatus: boolean = false;
   filterStatus: boolean = false;
