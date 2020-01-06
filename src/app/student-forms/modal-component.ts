@@ -9,6 +9,7 @@ export class ModalStudentComponent   {
   @Output() newStudentData: EventEmitter<Student> = new EventEmitter<Student>();
   protected openModal(id: string): void {
     this.modalService.open(id);
+
   }
   protected closeModal(id: string): void {
     this.modalService.close(id);
@@ -20,7 +21,7 @@ export class ModalStudentComponent   {
       alert("Вы не полностью ввели данные или ввели неверно");
       return;
     }
-    const newStudent = new Student(Number(myForm.controls["id"].value),
+    const newStudent = new Student( myForm.controls["studNumber"].value,
       myForm.controls["fullName"].value["name"], myForm.controls["fullName"].value["surname"],
       myForm.controls["fullName"].value["patronymic"], new Date(myForm.controls["birthDate"].value),
       myForm.controls["schedule"].value,   Number(myForm.controls["averageScore"].value),

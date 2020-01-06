@@ -1,5 +1,11 @@
-<div class="container">
+<head>
+  <base href="/" />
+  <title></title>
+</head>
 
+<div *ngIf="students === undefined"> Загрузка</div>
+<div *ngIf="students !== undefined">
+<div class="container">
   <div class="searchForm">
     <div class="selectForm">
     <div class="miniText">Поиск по </div>
@@ -35,7 +41,7 @@
     <button class="filterButton" (click)="filterStudents()">Готово</button>
   </div>
 <div class="togglesContainer">
-  <app-add-student  (newStudentData)="addStudent($event)"></app-add-student>
+  <app-add-student  (newStudentData)="addStudent($event)" routerLink="/add"></app-add-student>
 </div>
   <div class="togglesContainer">
 
@@ -52,7 +58,7 @@
   <table class="studentsTable">
   <tr>
     <th class="thSmall"> </th>
-    <th class="thSmall">Cтуденч. билет<i class="fas fa-caret-up" (click)="sortStudents('id', 'ASC')" > </i> <i class="fas fa-caret-down" (click)="sortStudents('id', 'DESC')"> </i></th>
+    <th class="thSmall">Cтуденч. билет<i class="fas fa-caret-up" (click)="sortStudents('studNumber', 'ASC')" > </i> <i class="fas fa-caret-down" (click)="sortStudents('studNumber', 'DESC')"> </i></th>
     <th class="thMiddle">ФИО  <i class="fas fa-caret-up"  (click)="sortStudents('surname', 'ASC')"></i> <i class="fas fa-caret-down"  (click)="sortStudents('surname', 'DESC')" ></i></th>
     <th class="thMiddle">Дата рождения  <i class="fas fa-caret-up" (click)="sortStudents('birthDate', 'ASC')"></i> <i class="fas fa-caret-down" (click)="sortStudents('birthDate', 'DESC')"></i></th>
     <th class="thMiddle" >Направление  <i class="fas fa-caret-up" (click)="sortStudents('schedule', 'ASC')"></i> <i class="fas fa-caret-down" (click)="sortStudents('schedule', 'DESC')"></i></th>
@@ -63,26 +69,30 @@
     <th class="thSmall"> Удалить</th>
 
   </tr>
-  <tbody *ngFor="let student of students; let i = index; trackBy: trackById">
+
+  <tbody *ngFor="let student of students; let i = index; trackBy: trackById ">
 
 <tr class="needsHighlight students" [class.showFStudents]=" studentIsValid(student.averageScore)"
     [class.showStudent]=" filterStudent(student.averageScore, student.birthDate)"
-    [class.needsHighlight] = "colorStudent(student.name, student.surname, student.id )"
+    [class.needsHighlight] = "colorStudent(student.name, student.surname, student.studNumber )"
    >
   <td >{{i+1}}</td>
-  <td  >{{student.id}}</td>
+  <td  >{{student.studNumber}}</td>
   <td >{{student.name | initials:student.surname:student.patronymic}}</td>
   <td  >{{student.birthDate.toDateString() | date}}</td>
   <td  >{{student.schedule}}</td>
   <td  >{{student.isBachelor}}</td>
   <td  >{{student.hasScholarship}}</td>
   <td tendency [state]="calculateTendency(student.averageScore, student.previousAverageScore)" >{{student.averageScore}}</td>
-  <td ><app-edit-student [currentStudent]= "student" (editedStudentData)="editStudent($event)"></app-edit-student></td>
-  <td class="tdDel td3"> <i class="fas fa-times-circle" (click)="deleteStudent(student.id)"></i></td>
+  <td>
+    <i class="far fa-edit" (click)="navigateToEditForm(student.studNumber)"></i>
+    <app-edit-student [currentStudent]= "student" (editedStudentData)="editStudent($event)" routerLink="/edit/{{student.studNumber}}"></app-edit-student>
+  </td>
+  <td class="tdDel td3"> <i class="fas fa-times-circle" (click)="deleteStudent(student.studNumber)"></i></td>
 </tr>
+
   </tbody>
 </table>
+
 </div>
-
-
-
+</div>

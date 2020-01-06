@@ -1,8 +1,6 @@
-<div>
-  <i class="far fa-edit" (click)="openModal(currentStudent.id.toString())"></i>
-</div>
-<jw-modal  [id]="currentStudent.id.toString()">
-  <div class = "closeModal" (click)="closeModal(currentStudent.id.toString())"> <i class="fas fa-times-circle "></i> </div>
+
+<jw-modal  [id]="currentStudent.studNumber.toString()">
+  <div class = "closeModal" (click)="closeModal(currentStudent.studNumber.toString())"> <i class="fas fa-times-circle "></i> </div>
   <div class = "container">
     <form [formGroup]="editStudentForm">
       <div class="rowContainer">
@@ -10,7 +8,7 @@
         <div class="formInput"><input class="inputStyle"  type = "number"  readonly></div>
       </div>
       <div class="alert alert-danger"
-           *ngIf="editStudentForm.controls['id'].invalid && editStudentForm.controls['id'].touched">
+           *ngIf="editStudentForm.controls['studNumber'].invalid && editStudentForm.controls['studNumber'].touched">
         Укажите id
       </div>
       <div formGroupName="fullName">
@@ -82,5 +80,5 @@ editStudentForm.get('fullName.surname').touched">
       </div>
     </form>
   </div>
-  <div class="container"><button class="addStudent" (click)="submitStudent(this.editStudentForm,  this.editedStudentData, currentStudent.id.toString() )">Изменить</button> </div>
+  <div class="container"><button class="addStudent" (click)="submitStudent(this.editStudentForm,  this.editedStudentData, currentStudent.studNumber.toString() )">Изменить</button> </div>
 </jw-modal>

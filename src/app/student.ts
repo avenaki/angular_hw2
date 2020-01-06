@@ -1,5 +1,5 @@
 export class Student {
-  id: number;
+  studNumber: number;
   name: string;
   surname: string;
   patronymic: string;
@@ -9,9 +9,9 @@ export class Student {
   previousAverageScore: number;
   isBachelor: boolean;
   hasScholarship: boolean;
-  constructor(id: number, name: string, surname: string, patronymic: string, birthDate: Date,
+  constructor(studNumber: number, name: string, surname: string, patronymic: string, birthDate: Date,
               schedule: string, averageScore: number, previousAverageScore: number,  isBachelor: boolean, hasScholarship: boolean ) {
-    this.id = id;
+    this.studNumber = studNumber;
     this.name = name;
     this.surname = surname;
     this.patronymic = patronymic;

@@ -22,7 +22,7 @@ export class AddStudentComponent extends ModalStudentComponent implements OnInit
   }
   protected initForm(): void {
     this.addStudentForm =  this.fb.group({
-      id: new FormControl("", [Validators.required, Validators.pattern(/[1-9]/ )]),
+      studNumber: new FormControl("", [Validators.required, Validators.pattern(/[1-9]/ )]),
       fullName: new FormGroup({
         name: new FormControl("", [Validators.required, Validators.pattern(/[А-я]/ )]),
         surname:  new FormControl("", [Validators.required, Validators.pattern(/[А-я]/)]),

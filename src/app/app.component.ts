@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy,  Component, EventEmitter, Output } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, NgZone, OnInit, Output } from "@angular/core";
+import { Router } from "@angular/router";
+import { BehaviorSubject, Observable } from "rxjs";
+import { map } from "rxjs/operators";
+import { HttpService } from "./http.service";
 import { Student } from "./student";
 
 
@@ -9,108 +14,10 @@ import { Student } from "./student";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class AppComponent {
+export class AppComponent implements  OnInit {
 
-  students: Student[] = [
-    {
-      id: 1,
-      name: "Андрей",
-      surname: "Иванович",
-      patronymic: "Иванов",
-      birthDate: new Date("1998-11-1"),
-      schedule: "Бизнес-информатика",
-      averageScore: 5,
-      previousAverageScore: 4,
-      isBachelor: true,
-      hasScholarship: true
-    },
-    {
-      id: 2,
-      name: "Ольга",
-      surname: "Романова",
-      patronymic: "Михайловна",
-      birthDate: new Date("1999-03-01"),
-      schedule: "Программная-инженерия",
-      averageScore: 4,
-      previousAverageScore: 3,
-      isBachelor: true,
-      hasScholarship: true
-    },
-    {
-      id: 5,
-      name: "Анастасия",
-      surname: "Кутузова",
-      patronymic: "Евгеньевна",
-      birthDate: new Date("1999-02-11"),
-      schedule: "Экономика",
-      averageScore: 3,
-      previousAverageScore: 4,
-      isBachelor: true,
-      hasScholarship: false
-
-    }
-    ,
-    {
-      id: 6,
-      name: "Олег",
-      surname: "Семенович",
-      patronymic: "Олегович",
-      birthDate: new Date("1986-11-11"),
-      schedule: "Менеджмент",
-      averageScore: 4,
-      previousAverageScore: 3,
-      isBachelor: false,
-      hasScholarship: false
-    },
-    {
-      id: 7,
-      name: "Екатерина",
-      surname: "Гордиенко",
-      patronymic: "Ивановна",
-      birthDate: new Date("1997-12-03"),
-      schedule: "Менеджмент",
-      averageScore: 2,
-      previousAverageScore: 3,
-      isBachelor: false,
-      hasScholarship: false
-    },
-    {
-      id: 8,
-      name: "Екатерина",
-      surname: "Сырцева",
-      patronymic: "Александровна",
-      birthDate: new Date("1995-12-22"),
-      schedule: "Экономика",
-      averageScore: 2,
-      previousAverageScore: 2,
-      isBachelor: true,
-      hasScholarship: false
-    },
-    {
-      id: 9,
-      name: "Ольга",
-      surname: "Шушарина",
-      patronymic: "Ивановна",
-      birthDate: new Date("1999-08-15"),
-      schedule: "Программная-инженерия",
-      averageScore: 4,
-      previousAverageScore: 3,
-      isBachelor: true,
-      hasScholarship: true
-    },
-    {
-      id: 10,
-      name: "Кристина",
-      surname: "Патракова",
-      patronymic: "Андреевна",
-      birthDate: new Date("1999-06-24"),
-      schedule: "Менеджмент",
-      averageScore: 2,
-      previousAverageScore: 3,
-      isBachelor: true,
-      hasScholarship: false
-    },
-  ];
+  public students: Student[];
+  public students$: Observable < Student[] >;
   status: boolean = false;
   searchStatus: boolean = false;
   filterStatus: boolean = false;
@@ -126,13 +33,31 @@ export class AppComponent {
   filterInput2: string;
   studentIsFound: boolean = false;
   chosenStudent: Student;
+
   @Output() sendStudentData: EventEmitter<Student> = new EventEmitter<Student>();
   foundStudentId: number;
 
+  constructor(private httpService: HttpService, private cdr: ChangeDetectorRef,
+              private zone: NgZone, private route: Router) { }
   switchShowFStudents(): void {
     this.status = !this.status;
   }
 
+  ngOnInit(): void {
+   this.getStudentsList();
+  }
+  correctTypesInList(list: Student[]): Student[] {
+    list.forEach( student => student.birthDate = new Date(student.birthDate));
+    return list;
+  }
+getStudentsList(): void {
+  this.httpService.getStudents().subscribe(res => {
+    this.students = res;
+   this.students = this.correctTypesInList(this.students);
+    this.cdr.markForCheck();
+  });
+
+}
   studentIsValid(score: number): boolean {
     return score < 3 && this.status === true;
   }
@@ -242,7 +167,14 @@ export class AppComponent {
   deleteStudent(id: number): void {
     const result = confirm("Вы точно хотите удалить студента?");
     if (result) {
-      this.students = this.students.filter(item => item.id !== id);
+   //   this.students = this.students.filter(item => item.id !== id);
+
+    this.httpService.deleteStudent(id).subscribe(res => {
+       this.students = res;
+       this.students = this.correctTypesInList(this.students);
+   this.cdr.markForCheck();
+ });
+
       alert("Student with Id " + id.toString() + " was deleted! ");
     } else {
       return;
@@ -250,18 +182,27 @@ export class AppComponent {
   }
 
   addStudent(student: Student): void {
-    if (this.students.filter(item => item.id === student.id).length === 1) {
+    if (this.students.filter(item => item.studNumber === student.studNumber).length === 1) {
       alert(" Student with such id already exists!!!");
       return;
     }
-    this.students.push(student);
-
+   // this.students.push(student);
+      this.httpService.addStudent(student).subscribe(res => {
+        this.students = res;
+        this.students = this.correctTypesInList(this.students);
+        this.cdr.markForCheck();
+      });
   }
 
   editStudent(student: Student): void {
-    const index = this.students.findIndex(currentStudent => currentStudent.id === student.id);
+    const index = this.students.findIndex(currentStudent => currentStudent.studNumber === student.studNumber);
     student.previousAverageScore = this.students[index].averageScore;
-    this.students[index] = student;
+    // this.students[index] = student;
+    this.httpService.editStudent(student).subscribe(res => {
+      this.students = res;
+      this.students = this.correctTypesInList(this.students);
+      this.cdr.markForCheck();
+    });
 
   }
 
@@ -270,7 +211,7 @@ export class AppComponent {
   }
 
   trackById(index: number, student: Student): number {
-    return student.id;
+    return student.studNumber;
   }
 
   calculateTendency(currentScore: number, previousScore: number): number {
@@ -284,4 +225,6 @@ export class AppComponent {
   }
 
 
+  navigateToEditForm(studNumber: number): void {
+    this.route.navigate(["edit", studNumber]); }
 }

@@ -7,10 +7,10 @@
   <form [formGroup]="addStudentForm">
     <div class="rowContainer">
     <div class="largeText">Cтуд. билет</div>
- <div class="formInput"><input class="inputStyle"  type = "number"  formControlName="id" ></div>
+ <div class="formInput"><input class="inputStyle"  type = "number"  formControlName="studNumber" ></div>
     </div>
     <div class="alert alert-danger"
-         *ngIf="addStudentForm.controls['id'].invalid && addStudentForm.controls['id'].touched">
+         *ngIf="addStudentForm.controls['studNumber'].invalid && addStudentForm.controls['studNumber'].touched">
       Укажите id
     </div>
 <div formGroupName="fullName">
