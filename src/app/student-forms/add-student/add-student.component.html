@@ -1,8 +1,9 @@
-<div>
-  <button class="addButton " id="addStudentPlus"(click)="openModal('add-student-modal')">Добавить студента</button>
-</div>
-<jw-modal  id="add-student-modal">
-  <div class = "closeModal" (click)="closeModal('add-student-modal')"> <i class="fas fa-times-circle "></i> </div>
+ <div *ngIf="addStudentForm === undefined"> Загрузка </div>
+
+
+<jw-modal  id="addModal">
+  <div *ngIf="addStudentForm !== undefined">
+  <div class = "closeModal" (click)="closeModal('addModal')"> <i class="fas fa-times-circle "></i> </div>
   <div class = "container">
   <form [formGroup]="addStudentForm">
     <div class="rowContainer">
@@ -82,5 +83,7 @@ addStudentForm.get('fullName.surname').touched">
     </div>
 </form>
   </div>
-  <div class="container"><button class="addStudent" (click)="submitStudent(this.addStudentForm, this.newStudentData, 'add-student-modal')">Отправить</button> </div>
+  <div class="container"><button class="addStudent" (click)="submitStudent(this.addStudentForm,  'addModal')">Отправить</button> </div>
+  </div>
 </jw-modal>
+

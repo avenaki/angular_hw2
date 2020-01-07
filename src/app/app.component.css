@@ -160,5 +160,9 @@ tr:last-child td:last-child {
 .thMiddle{
   width:18px;
 }
+.fixButton {
+  margin-left: 87%;
+  width:160px;
+}
 
 

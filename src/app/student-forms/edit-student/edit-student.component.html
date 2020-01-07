@@ -1,6 +1,8 @@
+<div *ngIf="editStudentForm === undefined"> Загрузка </div>
 
-<jw-modal  [id]="currentStudent.studNumber.toString()">
-  <div class = "closeModal" (click)="closeModal(currentStudent.studNumber.toString())"> <i class="fas fa-times-circle "></i> </div>
+<jw-modal id="editStudentModal">
+  <div *ngIf="editStudentForm !== undefined">
+ <div class = "closeModal" (click)="closeModal('editStudentModal')"> <i class="fas fa-times-circle "></i> </div>
   <div class = "container">
     <form [formGroup]="editStudentForm">
       <div class="rowContainer">
@@ -80,5 +82,7 @@ editStudentForm.get('fullName.surname').touched">
       </div>
     </form>
   </div>
-  <div class="container"><button class="addStudent" (click)="submitStudent(this.editStudentForm,  this.editedStudentData, currentStudent.studNumber.toString() )">Изменить</button> </div>
+  <div class="container"><button class="addStudent" (click)="submitStudent(this.editStudentForm,  this.editedStudentData, 'editStudentModal' )">Изменить</button> </div>
+  </div>
 </jw-modal>
+

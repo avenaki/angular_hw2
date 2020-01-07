@@ -1,15 +1,15 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { RouterModule, Routes } from "@angular/router";
 import { ModalModule } from "../_modal";
+import { AppRoutingModule } from "../app-routing.module";
+import { HttpService } from "../http.service";
 import { AddStudentComponent } from "./add-student/add-student.component";
 import { EditStudentComponent } from "./edit-student/edit-student.component";
+import { EditStudentGuard } from "./edit-student/edit-student.guard";
+import { routing, StudentFormsRoutingModule } from "./student-forms-routing.module";
 
-const appRoutes: Routes = [
-  { path: "add", component: AddStudentComponent},
-  { path: "edit", component: EditStudentComponent},
- ]
+
 @NgModule({
   declarations: [
     AddStudentComponent,
@@ -24,7 +24,8 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     ModalModule,
-    RouterModule.forRoot(appRoutes),
-  ]
+    StudentFormsRoutingModule,
+  ],
+  providers: [ EditStudentGuard ]
 })
 export class StudentFormsModule { }

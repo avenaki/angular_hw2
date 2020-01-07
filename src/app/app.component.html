@@ -1,3 +1,4 @@
+<router-outlet></router-outlet>
 <head>
   <base href="/" />
   <title></title>
@@ -40,8 +41,8 @@
     </form>
     <button class="filterButton" (click)="filterStudents()">Готово</button>
   </div>
-<div class="togglesContainer">
-  <app-add-student  (newStudentData)="addStudent($event)" routerLink="/add"></app-add-student>
+<div>
+  <button class="addButton fixButton" id="addStudentPlus" routerLink="add">Добавить студента</button>
 </div>
   <div class="togglesContainer">
 
@@ -85,8 +86,7 @@
   <td  >{{student.hasScholarship}}</td>
   <td tendency [state]="calculateTendency(student.averageScore, student.previousAverageScore)" >{{student.averageScore}}</td>
   <td>
-    <i class="far fa-edit" (click)="navigateToEditForm(student.studNumber)"></i>
-    <app-edit-student [currentStudent]= "student" (editedStudentData)="editStudent($event)" routerLink="/edit/{{student.studNumber}}"></app-edit-student>
+    <i class="far fa-edit" routerLink = "edit/{{student.studNumber}}"></i>
   </td>
   <td class="tdDel td3"> <i class="fas fa-times-circle" (click)="deleteStudent(student.studNumber)"></i></td>
 </tr>
@@ -95,4 +95,7 @@
 </table>
 
 </div>
+
 </div>
+
+

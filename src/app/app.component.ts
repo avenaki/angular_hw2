@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, NgZone, OnInit, Output } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { HttpService } from "./http.service";
@@ -11,13 +11,12 @@ import { Student } from "./student";
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+ changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class AppComponent implements  OnInit {
 
   public students: Student[];
-  public students$: Observable < Student[] >;
   status: boolean = false;
   searchStatus: boolean = false;
   filterStatus: boolean = false;
@@ -38,7 +37,11 @@ export class AppComponent implements  OnInit {
   foundStudentId: number;
 
   constructor(private httpService: HttpService, private cdr: ChangeDetectorRef,
-              private zone: NgZone, private route: Router) { }
+               private router: Router) {
+    this.router.events.subscribe((val) => {
+      if (  val["url"] === "/") { this.getStudentsList(); }
+    });
+  }
   switchShowFStudents(): void {
     this.status = !this.status;
   }
@@ -53,11 +56,18 @@ export class AppComponent implements  OnInit {
 getStudentsList(): void {
   this.httpService.getStudents().subscribe(res => {
     this.students = res;
+   this.saveToLocalStorage(this.students);
    this.students = this.correctTypesInList(this.students);
     this.cdr.markForCheck();
   });
 
 }
+
+  saveToLocalStorage(students: Student[]): void {
+    students.forEach( (student) => {
+      localStorage.setItem(student.studNumber.toString(), student.averageScore.toString());
+    });
+  }
   studentIsValid(score: number): boolean {
     return score < 3 && this.status === true;
   }
@@ -226,5 +236,5 @@ getStudentsList(): void {
 
 
   navigateToEditForm(studNumber: number): void {
-    this.route.navigate(["edit", studNumber]); }
+    this.router.navigate(["edit", studNumber]); }
 }

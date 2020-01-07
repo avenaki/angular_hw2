@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators  } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ModalService } from "src/app/_modal";
+import { HttpService } from "../../http.service";
 import { Student } from "../../student";
 import {  ModalStudentComponent } from "../modal-component";
 import { Validator } from "../validators";
@@ -11,15 +13,20 @@ import { Validator } from "../validators";
   styleUrls: ["./add-student.component.css"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddStudentComponent extends ModalStudentComponent implements OnInit {
-  constructor(protected fb: FormBuilder, protected modalService: ModalService, protected validators: Validator) {
-    super(fb, modalService, validators);
+export class AddStudentComponent extends ModalStudentComponent implements OnInit{
+  constructor(protected fb: FormBuilder, protected modalService: ModalService, protected validator: Validator,
+              protected http: HttpService, protected router: Router,
+              protected cdr: ChangeDetectorRef) {
+    super(fb, modalService, validator, router, http);
+
   }
   addStudentForm: FormGroup;
-  @Output() newStudentData: EventEmitter<Student> = new EventEmitter<Student>();
   public ngOnInit(): void {
     this.initForm();
+    this.cdr.markForCheck();
+    setTimeout( () => {    this.openModal("addModal"); }, 2000);
   }
+
   protected initForm(): void {
     this.addStudentForm =  this.fb.group({
       studNumber: new FormControl("", [Validators.required, Validators.pattern(/[1-9]/ )]),
@@ -34,6 +41,22 @@ export class AddStudentComponent extends ModalStudentComponent implements OnInit
         this.validators.markValidator]),
       birthDate: new FormControl("", [Validators.required, this.validators.birthDateValidator]),
       isBachelor: new FormControl("", [Validators.required, Validators.pattern(/(true|false)/)])});
-  }
 
+  }
+  protected submitStudent(myForm: FormGroup,  id: string): void {
+    const controls = myForm.controls;
+    if (myForm.invalid) {
+      Object.keys(controls).forEach(controlName => controls[controlName].markAsTouched());
+      alert("Вы не полностью ввели данные или ввели неверно");
+      return;
+    }
+    const newStudent = new Student( myForm.controls["studNumber"].value,
+      myForm.controls["fullName"].value["name"], myForm.controls["fullName"].value["surname"],
+      myForm.controls["fullName"].value["patronymic"], new Date(myForm.controls["birthDate"].value),
+      myForm.controls["schedule"].value,   Number(myForm.controls["averageScore"].value),
+      Number(myForm.controls["averageScore"].value),
+      Boolean(myForm.controls["isBachelor"].value), Boolean(myForm.controls["hasScholarship"].value));
+    this.http.addStudent(newStudent).subscribe(res => {   this.modalService.close(id);
+      this.router.navigate([""]); });
+  }
 }

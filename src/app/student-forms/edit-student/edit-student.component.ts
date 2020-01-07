@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ModalService } from "../../_modal";
 import { HttpService } from "../../http.service";
 import { Student } from "../../student";
@@ -15,30 +15,28 @@ import { Validator } from "../validators";
 })
 export class EditStudentComponent extends ModalStudentComponent implements OnInit {
   constructor(protected fb: FormBuilder, protected modalService: ModalService, protected validator: Validator,
-              protected route: ActivatedRoute, protected http: HttpService ) {
-    super(fb, modalService, validator);
+              protected route: ActivatedRoute, protected http: HttpService,
+              protected cdr: ChangeDetectorRef, protected router: Router) {
+    super(fb, modalService, validator, router, http);
   }
   editStudentForm: FormGroup ;
-  clickedAdd: boolean;
-  @Output() editedStudentData:  EventEmitter<Student> = new EventEmitter<Student>();
-  @Input() currentStudent;
+   currentStudent: Student;
+
   public ngOnInit(): void {
-    this.getStudentDetails();
+    this.loadData();
   }
-  getStudentDetails(): void {
 
-    const id = this.route.snapshot.params.id;
-    if ( id === null || id === undefined) {
-      this.initForm();
+public loadData(): void {
+  const id = this.route.snapshot.params.id;
+  this.http.getStudentById(id).subscribe(data => {
+    this.currentStudent = data;
+    this.currentStudent.birthDate = new Date (this.currentStudent.birthDate);
+    this.initForm();
+    this.cdr.markForCheck();
+    this.openModal("editStudentModal");
+  });
+}
 
-    } else {
-      this.http.getStudentById(id).subscribe(data => {
-        this.currentStudent = data;
-        this.initForm();
-        this.openModal(id);
-      });
-    }
-  }
   protected initForm(): void {
     const day = (this.currentStudent.birthDate.getDate() < 10) ? "0" + this.currentStudent.birthDate.getDate() : this.currentStudent.birthDate.getDate();
     const month = (this.currentStudent.birthDate.getMonth() + 1 < 10) ? "0" + (this.currentStudent.birthDate.getMonth() + 1) : this.currentStudent.birthDate.getMonth() + 1;
@@ -56,5 +54,21 @@ export class EditStudentComponent extends ModalStudentComponent implements OnIni
       this.validator.markValidator]),
       birthDate: new FormControl(year + "-" + month + "-" + day, [Validators.required, this.validator.birthDateValidator]),
       isBachelor: new FormControl(this.currentStudent.isBachelor, [Validators.required, Validators.pattern(/(true|false)/)])});
+  }
+  protected submitStudent(myForm: FormGroup,  id: string): void {
+    const controls = myForm.controls;
+    if (myForm.invalid) {
+      Object.keys(controls).forEach(controlName => controls[controlName].markAsTouched());
+      alert("Вы не полностью ввели данные или ввели неверно");
+      return;
+    }
+    const newStudent = new Student( myForm.controls["studNumber"].value,
+      myForm.controls["fullName"].value["name"], myForm.controls["fullName"].value["surname"],
+      myForm.controls["fullName"].value["patronymic"], new Date(myForm.controls["birthDate"].value),
+      myForm.controls["schedule"].value,   Number(myForm.controls["averageScore"].value),
+      this.currentStudent.averageScore,
+      Boolean(myForm.controls["isBachelor"].value), Boolean(myForm.controls["hasScholarship"].value));
+    this.http.editStudent(newStudent).subscribe(res => {   this.modalService.close(id);
+      this.router.navigate([""]); });
   }
 }
