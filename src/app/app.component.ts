@@ -3,8 +3,10 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Ng
 import { ActivatedRoute, Router } from "@angular/router";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { GeneralService } from "./general.service";
 import { HttpService } from "./http.service";
 import { Student } from "./student";
+
 
 
 @Component({
@@ -37,7 +39,7 @@ export class AppComponent implements  OnInit {
   foundStudentId: number;
 
   constructor(private httpService: HttpService, private cdr: ChangeDetectorRef,
-               private router: Router) {
+               private router: Router, private generalService: GeneralService) {
     this.router.events.subscribe((val) => {
       if (  val["url"] === "/") { this.getStudentsList(); }
     });
@@ -54,7 +56,7 @@ export class AppComponent implements  OnInit {
     return list;
   }
 getStudentsList(): void {
-  this.httpService.getStudents().subscribe(res => {
+  this.generalService.instance.getStudents().subscribe(res => {
     this.students = res;
    this.saveToLocalStorage(this.students);
    this.students = this.correctTypesInList(this.students);
@@ -177,12 +179,8 @@ getStudentsList(): void {
   deleteStudent(id: number): void {
     const result = confirm("Вы точно хотите удалить студента?");
     if (result) {
-   //   this.students = this.students.filter(item => item.id !== id);
-
-    this.httpService.deleteStudent(id).subscribe(res => {
-       this.students = res;
-       this.students = this.correctTypesInList(this.students);
-   this.cdr.markForCheck();
+    this.generalService.instance.deleteStudent(id).subscribe(res => {
+      this.getStudentsList();
  });
 
       alert("Student with Id " + id.toString() + " was deleted! ");
@@ -190,36 +188,6 @@ getStudentsList(): void {
       return;
     }
   }
-
-  addStudent(student: Student): void {
-    if (this.students.filter(item => item.studNumber === student.studNumber).length === 1) {
-      alert(" Student with such id already exists!!!");
-      return;
-    }
-   // this.students.push(student);
-      this.httpService.addStudent(student).subscribe(res => {
-        this.students = res;
-        this.students = this.correctTypesInList(this.students);
-        this.cdr.markForCheck();
-      });
-  }
-
-  editStudent(student: Student): void {
-    const index = this.students.findIndex(currentStudent => currentStudent.studNumber === student.studNumber);
-    student.previousAverageScore = this.students[index].averageScore;
-    // this.students[index] = student;
-    this.httpService.editStudent(student).subscribe(res => {
-      this.students = res;
-      this.students = this.correctTypesInList(this.students);
-      this.cdr.markForCheck();
-    });
-
-  }
-
-  editChosenStudent(student: Student): void {
-    this.chosenStudent = student;
-  }
-
   trackById(index: number, student: Student): number {
     return student.studNumber;
   }
@@ -237,4 +205,5 @@ getStudentsList(): void {
 
   navigateToEditForm(studNumber: number): void {
     this.router.navigate(["edit", studNumber]); }
+
 }

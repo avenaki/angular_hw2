@@ -1,14 +1,13 @@
-import { EventEmitter,  Output } from "@angular/core";
-import {  FormBuilder, FormGroup } from "@angular/forms";
+import {  FormBuilder } from "@angular/forms";
 import {  Router } from "@angular/router";
 import { ModalService } from "../_modal";
-import { HttpService } from "../http.service";
-import { Student } from "../student";
+import { GeneralService } from "../general.service";
+
 import { Validator } from "./validators";
 
 export class ModalStudentComponent   {
   constructor(protected fb: FormBuilder, protected modalService: ModalService, protected validators: Validator,
-              protected router: Router, protected http: HttpService ) {}
+              protected router: Router, protected dataService: GeneralService ) {}
 
   protected openModal(id: string): void {
     this.modalService.open(id);

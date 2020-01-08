@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component,  OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ModalService } from "../../_modal";
-import { HttpService } from "../../http.service";
+import { GeneralService } from "../../general.service";
 import { Student } from "../../student";
 import { ModalStudentComponent } from "../modal-component";
 import { Validator } from "../validators";
@@ -15,9 +15,9 @@ import { Validator } from "../validators";
 })
 export class EditStudentComponent extends ModalStudentComponent implements OnInit {
   constructor(protected fb: FormBuilder, protected modalService: ModalService, protected validator: Validator,
-              protected route: ActivatedRoute, protected http: HttpService,
+              protected route: ActivatedRoute, protected dataService: GeneralService,
               protected cdr: ChangeDetectorRef, protected router: Router) {
-    super(fb, modalService, validator, router, http);
+    super(fb, modalService, validator, router, dataService);
   }
   editStudentForm: FormGroup ;
    currentStudent: Student;
@@ -28,12 +28,12 @@ export class EditStudentComponent extends ModalStudentComponent implements OnIni
 
 public loadData(): void {
   const id = this.route.snapshot.params.id;
-  this.http.getStudentById(id).subscribe(data => {
+  this.dataService.instance.getStudentById(id).subscribe(data => {
     this.currentStudent = data;
     this.currentStudent.birthDate = new Date (this.currentStudent.birthDate);
     this.initForm();
     this.cdr.markForCheck();
-    this.openModal("editStudentModal");
+    setTimeout( () => {    this.openModal("editStudentModal"); }, 1000);
   });
 }
 
@@ -68,7 +68,7 @@ public loadData(): void {
       myForm.controls["schedule"].value,   Number(myForm.controls["averageScore"].value),
       this.currentStudent.averageScore,
       Boolean(myForm.controls["isBachelor"].value), Boolean(myForm.controls["hasScholarship"].value));
-    this.http.editStudent(newStudent).subscribe(res => {   this.modalService.close(id);
-      this.router.navigate([""]); });
+    this.dataService.instance.editStudent(newStudent);
+    this.router.navigate([""]);
   }
 }

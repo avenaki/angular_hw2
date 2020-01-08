@@ -5,15 +5,24 @@ import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import {  AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { GeneralService } from "./general.service";
 import { HttpService } from "./http.service";
 import { InitialsPipe } from "./initials.pipe";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { StartComponent } from "./start/start.component";
 import { StudentFormsModule } from "./student-forms/student-forms.module";
+import { StudentsHardcodedService } from "./students-hardcoded.service";
 import { TendencyDirective } from "./tendency.directive";
 
 
-
+ const generalServiceFactory = (_httpService: HttpService,  _hardcodedService: StudentsHardcodedService,
+                                      ) => {
+   const currentUrl = window.location.search;
+  if  ( currentUrl.endsWith("?debug=true")) {
+    return new GeneralService(_httpService, _hardcodedService,  2);
+  }
+  return new GeneralService(_httpService, _hardcodedService,  1);
+};
 
 @NgModule({
   declarations: [
@@ -31,7 +40,7 @@ import { TendencyDirective } from "./tendency.directive";
     RouterModule,
     AppRoutingModule,
   ],
-  providers: [ HttpService ],
+  providers:  [ { provide: GeneralService, useFactory: generalServiceFactory, deps: [HttpService, StudentsHardcodedService]}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

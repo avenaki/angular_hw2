@@ -14,5 +14,6 @@ export class EditStudentGuard implements CanActivate {
     if ( averageScore !== 5) {
       return true; }
      this.router.navigate([""]);
+    alert("Редактирование студентов со средним баллом равным 5 запрещено!");
     return false; }
 }

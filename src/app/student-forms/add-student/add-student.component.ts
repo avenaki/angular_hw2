@@ -1,8 +1,8 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators  } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import {  Router } from "@angular/router";
 import { ModalService } from "src/app/_modal";
-import { HttpService } from "../../http.service";
+import { GeneralService } from "../../general.service";
 import { Student } from "../../student";
 import {  ModalStudentComponent } from "../modal-component";
 import { Validator } from "../validators";
@@ -13,11 +13,11 @@ import { Validator } from "../validators";
   styleUrls: ["./add-student.component.css"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddStudentComponent extends ModalStudentComponent implements OnInit{
+export class AddStudentComponent extends ModalStudentComponent implements OnInit {
   constructor(protected fb: FormBuilder, protected modalService: ModalService, protected validator: Validator,
-              protected http: HttpService, protected router: Router,
+              protected dataService: GeneralService, protected router: Router,
               protected cdr: ChangeDetectorRef) {
-    super(fb, modalService, validator, router, http);
+    super(fb, modalService, validator, router, dataService);
 
   }
   addStudentForm: FormGroup;
@@ -56,7 +56,8 @@ export class AddStudentComponent extends ModalStudentComponent implements OnInit
       myForm.controls["schedule"].value,   Number(myForm.controls["averageScore"].value),
       Number(myForm.controls["averageScore"].value),
       Boolean(myForm.controls["isBachelor"].value), Boolean(myForm.controls["hasScholarship"].value));
-    this.http.addStudent(newStudent).subscribe(res => {   this.modalService.close(id);
-      this.router.navigate([""]); });
+    this.dataService.instance.addStudent(newStudent);
+    this.modalService.close(id);
+    this.router.navigate([""]);
   }
 }
