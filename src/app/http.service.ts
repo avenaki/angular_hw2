@@ -25,23 +25,21 @@ export class HttpService implements IGeneralService {
     return params;
   }
   public getStudents(): Observable<Student[]> {
-    return this.http.get<Student[]>("http://localhost:5000/api/student/get");
+    return this.http.get<Student[]>("https://studenttableapi.azurewebsites.net/api/student/get");
   }
 
   public getStudentById(id: string): Observable <Student> {
-    return this.http.get<Student>("http://localhost:5000/api/student/find/" + id);
+    return this.http.get<Student>("https://studenttableapi.azurewebsites.net/api/student/find/" + id);
   }
   public addStudent( student: Student ): void {
-   const params = HttpService.getParams(student);
-     this.http.get<Student[]>("http://localhost:5000/api/student/post",  { params } ).subscribe();
+     this.http.post("https://studenttableapi.azurewebsites.net/api/student/post",   student  ).subscribe();
   }
 
   public editStudent(  student: Student): void {
-    const params = HttpService.getParams(student);
-    this.http.get<Student[]>("http://localhost:5000/api/student/put",   { params }).subscribe();
+    this.http.post("https://studenttableapi.azurewebsites.net/api/student/put",   student ).subscribe();
   }
 
   public deleteStudent(  id: number): Observable<Student[]>  {
-    return this.http.get<Student []>("http://localhost:5000/api/student/delete/" + id.toString() );
+    return this.http.get<Student []>("https://studenttableapi.azurewebsites.net/api/student/delete/" + id.toString() );
   }
 }

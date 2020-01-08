@@ -37,6 +37,42 @@ constructor() {
       isBachelor: true,
       averageScore: 4,
       previousAverageScore: 5
+    },
+    {
+      studNumber: 3,
+      name: "Алиса",
+      surname: "Куличкина",
+      patronymic: "Олеговна",
+      birthDate: new Date("09-01-1997"),
+      schedule: "Экономика",
+      hasScholarship: true,
+      isBachelor: false,
+      averageScore: 4,
+      previousAverageScore: 3
+    },
+    {
+      studNumber: 5,
+      name: "Кристина",
+      surname: "Патракова",
+      patronymic: "Андреевна",
+      birthDate: new Date("02-02-1998"),
+      schedule: "Филология",
+      hasScholarship: true,
+      isBachelor: true,
+      averageScore: 5,
+      previousAverageScore: 4
+    },
+    {
+      studNumber: 6,
+      name: "Антон",
+      surname: "Трубицын",
+      patronymic: "Олегович",
+      birthDate: new Date("11-11-1999"),
+      schedule: "Юриспруденция",
+      hasScholarship: true,
+      isBachelor: false,
+      averageScore: 2,
+      previousAverageScore: 2
     }];
 }
   public getStudents(): Observable<Student[]> {

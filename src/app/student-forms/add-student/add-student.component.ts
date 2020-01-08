@@ -50,6 +50,10 @@ export class AddStudentComponent extends ModalStudentComponent implements OnInit
       alert("Вы не полностью ввели данные или ввели неверно");
       return;
     }
+    if (localStorage.getItem(myForm.controls["studNumber"].value.toString()) !== null) {
+      alert("Такой номер студенческого уже используется! Введите другой");
+      return;
+    }
     const newStudent = new Student( myForm.controls["studNumber"].value,
       myForm.controls["fullName"].value["name"], myForm.controls["fullName"].value["surname"],
       myForm.controls["fullName"].value["patronymic"], new Date(myForm.controls["birthDate"].value),

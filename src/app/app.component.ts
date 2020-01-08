@@ -66,6 +66,7 @@ getStudentsList(): void {
 }
 
   saveToLocalStorage(students: Student[]): void {
+    localStorage.clear();
     students.forEach( (student) => {
       localStorage.setItem(student.studNumber.toString(), student.averageScore.toString());
     });
@@ -179,6 +180,7 @@ getStudentsList(): void {
   deleteStudent(id: number): void {
     const result = confirm("Вы точно хотите удалить студента?");
     if (result) {
+      localStorage.removeItem(id.toString());
     this.generalService.instance.deleteStudent(id).subscribe(res => {
       this.getStudentsList();
  });
