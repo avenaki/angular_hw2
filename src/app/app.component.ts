@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, NgZone, OnInit, Output } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { BehaviorSubject, Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { filter, map } from "rxjs/operators";
 import { GeneralService } from "./general.service";
 import { HttpService } from "./http.service";
 import { Student } from "./student";
@@ -40,8 +40,8 @@ export class AppComponent implements  OnInit {
 
   constructor(private httpService: HttpService, private cdr: ChangeDetectorRef,
                private router: Router, private generalService: GeneralService) {
-    this.router.events.subscribe((val) => {
-      if (  val["url"] === "/") { this.getStudentsList(); }
+    this.router.events.pipe(filter (event => event instanceof NavigationEnd)).subscribe((val) => {
+      if (  window.location.pathname === "/") { setTimeout(() => { this.getStudentsList(); }, 1000); }
     });
   }
   switchShowFStudents(): void {
@@ -49,7 +49,7 @@ export class AppComponent implements  OnInit {
   }
 
   ngOnInit(): void {
-   this.getStudentsList();
+     // this.getStudentsList();
   }
   correctTypesInList(list: Student[]): Student[] {
     list.forEach( student => student.birthDate = new Date(student.birthDate));
@@ -181,10 +181,8 @@ getStudentsList(): void {
     const result = confirm("Вы точно хотите удалить студента?");
     if (result) {
       localStorage.removeItem(id.toString());
-    this.generalService.instance.deleteStudent(id).subscribe(res => {
-      this.getStudentsList();
- });
-
+    this.generalService.instance.deleteStudent(id);
+    this.students = this.students.filter(item => item.studNumber !== id);
       alert("Student with Id " + id.toString() + " was deleted! ");
     } else {
       return;

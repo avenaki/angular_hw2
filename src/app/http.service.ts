@@ -1,6 +1,9 @@
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, Subscription } from "rxjs";
+import { Router } from "@angular/router";
+import {  Observable } from "rxjs";
+import {  tap } from "rxjs/internal/operators";
+import { environment } from "../environments/environment";
 import { IGeneralService } from "./igeneral.service";
 import { Student } from "./student";
 
@@ -9,37 +12,51 @@ import { Student } from "./student";
   providedIn: "root"
 })
 export class HttpService implements IGeneralService {
-  constructor(private http: HttpClient) { }
-  private static getParams(student: Student): HttpParams {
-    let params = new HttpParams();
-    params = params.append("studNumber", student.studNumber.toString());
-    params = params.append("name", student.name);
-    params = params.append("surname", student.surname);
-    params = params.append("patronymic", student.patronymic);
-    params = params.append("schedule", student.schedule);
-    params = params.append("averageScore", student.averageScore.toString());
-    params = params.append("previousAverageScore", student.previousAverageScore.toString());
-    params = params.append("isBachelor", student.isBachelor.toString());
-    params = params.append("hasScholarship", student.hasScholarship.toString());
-    params = params.append("birthDate", student.birthDate.toDateString());
-    return params;
-  }
+  apiUrl = environment.apiUrl;
+  constructor(private http: HttpClient, private router: Router) { }
   public getStudents(): Observable<Student[]> {
-    return this.http.get<Student[]>("https://studenttableapi.azurewebsites.net/api/student/get");
+    return this.http.get<Student[]>(this.apiUrl + "api/student/get").pipe(
+      tap(
+        success => console.log("success"),
+        error => {
+          alert("Не получилось получить данные от сервера,  перейдите на hardcode версию");
+        }));
   }
 
   public getStudentById(id: string): Observable <Student> {
-    return this.http.get<Student>("https://studenttableapi.azurewebsites.net/api/student/find/" + id);
+    return this.http.get<Student>(this.apiUrl + "api/student/find/" + id).pipe(
+      tap(
+        success => console.log("success"),
+        error => {
+          alert("Не получилось получить данные от сервера, перейдите на hardcode версию");
+        }));
   }
+
   public addStudent( student: Student ): void {
-     this.http.post("https://studenttableapi.azurewebsites.net/api/student/post",   student  ).subscribe();
+     this.http.post(this.apiUrl + "api/student/post",   student  ).pipe(
+       tap(
+         success => console.log("success"),
+         error => {
+           alert("Не получилось передать данные серверу, перейдите на hardcode версию");
+         })).subscribe();
   }
+
 
   public editStudent(  student: Student): void {
-    this.http.post("https://studenttableapi.azurewebsites.net/api/student/put",   student ).subscribe();
+    this.http.post(this.apiUrl + "api/student/put",   student ).pipe(
+      tap(
+        success => console.log("success"),
+        error => {
+          alert("Не получилось передать данные серверу, перейдите на hardcode версию");
+        })).subscribe();
   }
 
-  public deleteStudent(  id: number): Observable<Student[]>  {
-    return this.http.get<Student []>("https://studenttableapi.azurewebsites.net/api/student/delete/" + id.toString() );
+  public deleteStudent(  id: number): void {
+  this.http.post(this.apiUrl + "api/student/delete/" + id.toString(), id).pipe(
+    tap(
+      success => console.log("success"),
+      error => {
+        alert("Не получилось передать данные серверу, , перейдите на hardcode версию");
+      })).subscribe();
   }
 }

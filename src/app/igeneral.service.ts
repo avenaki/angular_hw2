@@ -6,5 +6,5 @@ export interface IGeneralService {
    getStudentById: (id: string) => Observable <Student>;
    addStudent: ( student: Student ) => void;
    editStudent: (  student: Student) => void;
-   deleteStudent: (  id: number) => Observable<Student[]>;
+   deleteStudent: (  id: number) => void;
 }
